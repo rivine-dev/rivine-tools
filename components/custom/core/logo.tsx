@@ -5,10 +5,10 @@ export default function Logo() {
         <div className="flex row items-center justify-center">
             <Image
                 className="dark:invert"
-                src={"/logo/logo.png"}
+                src={"/logo/logo-stone.png"}
                 alt="Logo"
-                width={30}
-                height={30}
+                width={40}
+                height={40}
                 priority
             />
             <span className="pl-2 font-semibold">Rivine</span>
