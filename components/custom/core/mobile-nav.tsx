@@ -8,6 +8,7 @@ import {Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerTitle, DrawerTri
 import {navLinks} from "@/config/site-config";
 import {PanelRightClose, PanelRightOpen} from "lucide-react"
 import {ThemeToggle} from "@/components/theme/theme-toggle";
+import {LocaleSwitcher} from "@/components/custom/locale/locale-switcher";
 
 export function MobileNav() {
     const [open, setOpen] = useState(false);
@@ -54,6 +55,9 @@ export function MobileNav() {
                         {/*    <IconButton key={`nvI-${item.icon}`} icon={item.icon} tooltip={item.tooltip}*/}
                         {/*                href={item.href} target={item.target}></IconButton>*/}
                         {/*))}*/}
+                        <span className="mr-2">
+                            <LocaleSwitcher/>
+                        </span>
                         <ThemeToggle />
                     </div>
                 </DrawerFooter>

@@ -25,7 +25,7 @@ export default function NotFound() {
                         <Link href="javascript:history.back()">Go Back</Link>
                     </Button>
                     <Button asChild>
-                        <Link href="/">Go Home</Link>
+                        <Link href="/public">Go Home</Link>
                     </Button>
                 </CardFooter>
             </Card>

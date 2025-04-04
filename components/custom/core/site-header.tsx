@@ -5,6 +5,7 @@ import Logo from "@/components/custom/core/logo";
 import {navButtons} from "@/config/site-config";
 import {MobileNav} from "@/components/custom/core/mobile-nav";
 import IconButton from "@/components/custom/icons/icon-button";
+import {LocaleSwitcher} from "@/components/custom/locale/locale-switcher";
 
 export function SiteHeader() {
     return (
@@ -22,6 +23,10 @@ export function SiteHeader() {
                         <IconButton key={`nvI-${item.icon}`} icon={item.icon} tooltip={item.tooltip}
                                     href={item.href} target={item.target}></IconButton>
                     ))}
+                    <span className="mr-2">
+                        <LocaleSwitcher/>
+                    </span>
+
                     <ThemeToggle />
                 </nav>
             </div>
