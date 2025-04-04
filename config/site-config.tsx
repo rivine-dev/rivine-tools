@@ -2,12 +2,13 @@ export const navLinks = [
     // { href: "/projects", label: "Projects" },
     // { href: "/blog", label: "Blog" },
     // { href: "/experience", label: "Experience" },
-    { href: "/about", label: "About" },
+    { href: "/about", label: "About", tLabel: "general.about" },
     // { href: "/contributions", label: "Contributions" },
     // { href: "/contact", label: "Contact" },
 ] satisfies {
     href: string;
-    label: string;
+    label?: string;
+    tLabel?: string;
 }[];
 
 export const navButtons = [
@@ -21,7 +22,7 @@ export const footerMenuItems = [
     {
         title: "Site",
         links: [
-            { label: "Home", href: "/" },
+            { label: "Home", tLabel: "general.home", href: "/" },
             ...navLinks
         ],
     },

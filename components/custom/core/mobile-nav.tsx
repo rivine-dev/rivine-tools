@@ -9,9 +9,11 @@ import {navLinks} from "@/config/site-config";
 import {PanelRightClose, PanelRightOpen} from "lucide-react"
 import {ThemeToggle} from "@/components/theme/theme-toggle";
 import {LocaleSwitcher} from "@/components/custom/locale/locale-switcher";
+import {useTranslations} from "use-intl";
 
 export function MobileNav() {
     const [open, setOpen] = useState(false);
+    const t = useTranslations()
 
     return (
         <Drawer open={open} onOpenChange={setOpen} direction={"right"}>
@@ -37,7 +39,7 @@ export function MobileNav() {
                         href="/"
                         onOpenChange={setOpen}
                     >
-                        Home
+                        {t('general.home')}
                     </MobileLink>
                     {navLinks.map((item) => (
                         <MobileLink
@@ -45,7 +47,9 @@ export function MobileNav() {
                             href={item.href}
                             onOpenChange={setOpen}
                         >
-                            {item.label}
+                            {
+                                item.tLabel ? t(item.tLabel) : item.label
+                            }
                         </MobileLink>
                     ))}
                 </div>

@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import QRCodeCanvas from "@/components/custom/qr-code/qr-canvas";
 import { Card } from "@/components/ui/card";
 import { useState, useEffect } from "react";
+import {useTranslations} from "use-intl";
 
 type QrGeneratorProps = {
     type: "url" | "text" | "phone";
@@ -13,6 +14,7 @@ type QrGeneratorProps = {
 
 export default function QrGenerator({ type = "url", initialValue = "", onChange }: QrGeneratorProps) {
     const [input, setInput] = useState<string>(initialValue);
+    const t = useTranslations()
 
     useEffect(() => {
         setInput(initialValue);
@@ -47,13 +49,14 @@ type InputSectionProps = {
 };
 
 function InputSection({ type, input, handleInputChange }: InputSectionProps) {
+    const t = useTranslations()
     const placeholderText =
-        type === "text" ? "Enter your text here" : type === "phone" ? "Enter your phone number here" : "Enter your website URL here";
+        type === "text" ? t('tools.qrCodeGenerator.text.input') : type === "phone" ? t('tools.qrCodeGenerator.phone.input') : t('tools.qrCodeGenerator.url.input');
 
     return (
         <div className="flex flex-1 flex-col items-center justify-center p-6 text-center">
             <h2 className="mb-2 text-xl font-light">{placeholderText}</h2>
-            <p className="mb-4 text-sm">Your QR Code will be generated automatically</p>
+            <p className="mb-4 text-sm">{t('tools.qrCodeGenerator.autoGenerationMessage')}</p>
             <Input
                 value={input}
                 onChange={handleInputChange}

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {navLinks} from "@/config/site-config";
 import {useHash} from "@/hooks/use-hash";
+import {useTranslations} from "use-intl";
 
 function isActive(href: string, path: string) {
     return path.includes(href);
@@ -15,6 +16,7 @@ export function MainNav() {
     const pathname = usePathname();
     const hash = useHash();
     const [hoveredPath, setHoveredPath] = useState(pathname + hash);
+    const t = useTranslations()
 
     useEffect(() => {
         setHoveredPath(pathname + hash);
@@ -31,7 +33,9 @@ export function MainNav() {
                     onMouseOver={() => setHoveredPath(item.href)}
                     onMouseLeave={() => setHoveredPath(pathname)}
                 >
-                    <span>{item.label}</span>
+                    <span>{
+                        item.tLabel ? t(item.tLabel) : item.label
+                    }</span>
                     {isActive(item.href, hoveredPath) && (
                         <m.div
                             className="-z-10 absolute bottom-0 left-0 size-full rounded-full bg-muted"

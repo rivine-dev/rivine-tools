@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import {Ban, Loader2} from "lucide-react";
+import {useTranslations} from "use-intl";
 
 type QRCodeCanvasProps = {
     url?: string;
@@ -43,6 +44,7 @@ export default function QRCodeCanvas({
     const qrCode = useRef<QRCodeStyling | null>(null);
     const [fileType, setFileType] = useState<"png" | "jpeg">("png");
     const [loading, setLoading] = useState(true);
+    const t = useTranslations()
 
     useEffect(() => {
         if (!url) {
@@ -120,7 +122,7 @@ export default function QRCodeCanvas({
     };
 
     return (
-        <div>
+        <div className="flex flex-col items-center">
             {/* Wrapper to contain the QR code */}
             <div className="relative w-[300px] h-[300px] flex items-center justify-center">
                 {/* Static QR Code container */}
@@ -141,7 +143,7 @@ export default function QRCodeCanvas({
                 )}
             </div>
 
-            <div className="py-4 flex justify-between items-center">
+            <div className="py-4 flex justify-between items-center w-[100%]">
                 <Select value={fileType} onValueChange={(e) => setFileType(e as "png" | "jpeg")}>
                     <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="File Type" />
@@ -154,7 +156,7 @@ export default function QRCodeCanvas({
                         </SelectGroup>
                     </SelectContent>
                 </Select>
-                <Button onClick={onDownloadClick} disabled={!url}>Download</Button>
+                <Button onClick={onDownloadClick} disabled={!url}>{t('general.download')}</Button>
             </div>
         </div>
     );

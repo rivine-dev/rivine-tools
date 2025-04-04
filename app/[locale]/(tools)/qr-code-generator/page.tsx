@@ -1,6 +1,8 @@
 import QrGenerator from "@/components/custom/qr-code/qr-generator";
-import {Metadata} from "next";
+import {Metadata, ResolvingMetadata} from "next";
 import {appName, siteUrl} from "@/config/site-config";
+import {getTranslations} from "next-intl/server";
+import {getLocalizedPath} from "@/i18n/get-localized-path";
 
 export default function QRCodeGenerator() {
   return (
@@ -8,42 +10,45 @@ export default function QRCodeGenerator() {
   );
 }
 
-export const generateMetadata = (): Metadata => {
+type PageProps = {
+  params: Promise<{
+    locale: string
+  }>
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}
+
+export const generateMetadata = async (
+    props: PageProps,
+): Promise<Metadata> => {
+  const { locale } = await props.params
+  const t = await getTranslations({ locale})
+  const url = `${siteUrl}${getLocalizedPath({ slug: '', locale })}`
+
   return {
-    title: `${appName} | QR Code Generator`,
+    title: `${appName} | ${t('tools.qrCodeGenerator.title')}`,
     description:
-        "Generate QR codes instantly with our free online QR code generator. Customize with colors, logos, and high-quality downloads.",
-    keywords: [
-      "QR Code Generator",
-      "Free QR Code Maker",
-      "Custom QR Code",
-      "Create QR Code",
-      "Generate QR Code",
-      "URL QR Code",
-      "Generate QR Code Online",
-    ],
+        t('tools.qrCodeGenerator.description'),
+    keywords: Array.from({ length: 7 }, (_, i) => t(`tools.qrCodeGenerator.keywords.${i}`)),
     openGraph: {
-      title: "Free QR Code Generator | Generate Custom QR Codes Online",
-      description:
-          "Easily generate and customize QR codes for URLs, websites, and links. Ideal for sharing online content," +
-          " directing traffic, or enhancing print materials. Fast, free, and no signup required.",
-      url: `${siteUrl}/qr-code-generator`,
+      title: `${t('tools.qrCodeGenerator.url.title')} | Free QR Code Generator`,
+      description: t('tools.qrCodeGenerator.url.description'),
+      url: `${url}/qr-code-generator`,
       siteName: appName,
       images: [
         {
           url: `${siteUrl}/logo/logo-stone.png`, // Replace with your OG image URL
           width: 1200,
           height: 630,
-          alt: "Free QR Code Generator",
+          alt: t('tools.qrCodeGenerator.title'),
         },
       ],
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: "Free QR Code Generator - Create QR Codes Instantly",
+      title: t('tools.qrCodeGenerator.url.title'),
       description:
-          "Generate custom QR codes online for free. Download high-quality QR codes for websites, businesses, and more.",
+          t('tools.qrCodeGenerator.url.description'),
       images: [`${siteUrl}/logo/logo-stone.png`],
     },
   };

@@ -1,7 +1,9 @@
 import Logo from "@/components/custom/core/logo";
 import {footerBottomLinks, footerMenuItems, publicUrl} from "@/config/site-config";
+import { getTranslations } from 'next-intl/server';
 
-const SiteFooter = () => {
+const SiteFooter = async () => {
+    const t = await getTranslations();
 
     return (
         <div className="w-[100%] justify-center flex">
@@ -24,19 +26,28 @@ const SiteFooter = () => {
                                             key={linkIdx}
                                             className=" hover:text-primary"
                                         >
-                                            <a target={link.blank ? '_blank' : '_self'} href={link.href}>{link.label}</a>
+                                            <a target={link.blank ? '_blank' : '_self'} href={link.href}>
+                                                {
+                                                    link.tLabel ? t(link.tLabel) : link.label
+                                                }
+                                            </a>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
                         ))}
                     </div>
-                    <div className="mt-24 flex flex-col justify-between gap-4 border-t py-4 text-sm font-medium text-muted-foreground md:flex-row md:items-center">
+                    <div
+                        className="mt-24 flex flex-col justify-between gap-4 border-t py-4 text-sm font-medium text-muted-foreground md:flex-row md:items-center">
                         <p>{`© ${new Date().getFullYear()} Rivine dev. All rights reserved.`}</p>
                         <ul className="flex gap-4">
                             {footerBottomLinks.map((link: any, linkIdx) => (
                                 <li key={linkIdx} className="underline hover:text-primary">
-                                    <a href={link.url} target="_blank">{link.label}</a>
+                                    <a href={link.url} target="_blank">
+                                        {
+                                            link.tLabel ? t(link.tLabel) : link.label
+                                        }
+                                    </a>
                                 </li>
                             ))}
                         </ul>

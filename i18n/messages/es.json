@@ -1,5 +1,38 @@
 {
-  "messages": {
-    "hello": "Hello, world!"
+  "general": {
+    "download": "Descargar",
+    "about": "Acerca de",
+    "home": "Página Principal"
+  },
+  "tools": {
+    "qrCodeGenerator": {
+      "title": "Generador de Códigos QR Gratis",
+      "description": "Genere códigos QR al instante con nuestro generador de códigos QR en línea gratuito. Personalice con colores, logotipos y descargas de alta calidad.",
+      "keywords": {
+        "0": "Generador de Códigos QR",
+        "1": "Creador de Códigos QR Gratis",
+        "2": "Código QR Personalizado",
+        "3": "Crear Código QR",
+        "4": "Generar Código QR",
+        "5": "Código QR de Texto",
+        "6": "Generar Código QR en Línea"
+      },
+      "autoGenerationMessage": "Su Código QR se generará automáticamente",
+      "url": {
+        "title": "Generador de Códigos QR Gratis | Generar Códigos QR Personalizados en Línea",
+        "description": "Genere y personalice fácilmente códigos QR para textos. Ideal para compartir contenido en línea, dirigir tráfico o mejorar materiales impresos. Rápido, gratis y sin necesidad de registro.",
+        "input": "Ingrese la URL de su sitio web aquí"
+      },
+      "text": {
+        "title": "Generador de Códigos QR Gratis para Texto | Crear Códigos QR de Texto Personalizados",
+        "description": "Genere y personalice fácilmente códigos QR para mensajes de texto. Perfecto para compartir información de manera rápida y eficiente. Rápido, gratis y sin necesidad de registro.",
+        "input": "Ingrese su mensaje de texto aquí"
+      },
+      "phone": {
+        "title": "Generador de Códigos QR Gratis para Números de Teléfono | Crear Códigos QR de Teléfono Personalizados",
+        "description": "Genere y personalice fácilmente códigos QR para números de teléfono. Ideal para compartir información de contacto al instante. Rápido, gratis y sin necesidad de registro.",
+        "input": "Ingrese su número de teléfono aquí"
+      }
+    }
   }
 }

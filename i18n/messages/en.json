@@ -1,5 +1,38 @@
 {
-  "messages": {
-    "hello": "Hello, world!"
+  "general": {
+    "download": "Download",
+    "about": "About",
+    "home": "Home"
+  },
+  "tools" : {
+    "qrCodeGenerator": {
+      "title": "QR Code Generator Free",
+      "description": "Generate QR codes instantly with our free online QR code generator. Customize with colors, logos, and high-quality downloads.",
+      "keywords": {
+        "0": "QR Code Generator",
+        "1": "Free QR Code Maker",
+        "2": "Custom QR Code",
+        "3": "Create QR Code",
+        "4": "Generate QR Code",
+        "5": "Text QR Code",
+        "6": "Generate QR Code Online"
+      },
+      "autoGenerationMessage": "Your QR Code will be generated automatically",
+      "url": {
+        "title": "Free QR Code Generator | Generate Custom QR Codes Online",
+        "description": "Easily generate and customize QR codes for texts. Ideal for sharing online content, directing traffic, or enhancing print materials. Fast, free, and no signup required.",
+        "input": "Enter your website URL here"
+      },
+      "text": {
+        "title": "Free QR Code Generator for Text | Create Custom Text QR Codes",
+        "description": "Easily generate and customize QR codes for text messages. Perfect for sharing information quickly and efficiently. Fast, free, and no signup required.",
+        "input": "Enter your text message here"
+      },
+      "phone": {
+        "title": "Free QR Code Generator for Phone Numbers | Create Custom Phone QR Codes",
+        "description": "Easily generate and customize QR codes for phone numbers. Ideal for sharing contact information instantly. Fast, free, and no signup required.",
+        "input": "Enter your phone number here"
+      }
+    }
   }
 }
