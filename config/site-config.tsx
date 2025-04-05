@@ -2,7 +2,7 @@ export const navLinks = [
     // { href: "/projects", label: "Projects" },
     // { href: "/blog", label: "Blog" },
     // { href: "/experience", label: "Experience" },
-    { href: "/about", label: "About", tLabel: "general.about" },
+    // { href: "/about", label: "About", tLabel: "general.about" },
     // { href: "/contributions", label: "Contributions" },
     // { href: "/contact", label: "Contact" },
 ] satisfies {
@@ -10,6 +10,76 @@ export const navLinks = [
     label?: string;
     tLabel?: string;
 }[];
+
+interface ToolLink {
+    href: string;
+    label?: string;
+    tLabel?: string;
+    description?: string;
+    tDescription?: string;
+}
+
+interface FeaturedTool {
+    href?: string;
+    label?: string;
+    tLabel?: string;
+    description?: string;
+    tDescription?: string;
+    icon?: string;
+}
+
+interface ToolNavItem {
+    href?: string;
+    label?: string;
+    tLabel?: string;
+    description?: string;
+    tDescription?: string;
+    featured?: FeaturedTool;
+    links?: ToolLink[];
+}
+
+export const toolsNavItems: ToolNavItem[] = [
+    {
+        label: "QR Code Generator",
+        tLabel: "tools.qrCodeGenerator.label",
+        description: "Create QR codes for URLs, text, phone numbers, and more.",
+        tDescription: "tools.qrCodeGenerator.navDescription",
+        featured: {
+            href: "/qr-code-generator",
+            label: "QR Tool Generator Suite",
+            tLabel: "tools.qrCodeGenerator.subLabel",
+            description: "Generate all types of QR codes in one place.",
+            tDescription: "tools.qrCodeGenerator.subNavDescription",
+            icon: "qr",
+        },
+        links: [
+            {
+                label: "URL",
+                tLabel: "tools.qrCodeGenerator.url.label",
+                href: "/qr-code-generator",
+                description: "Generate QR codes for links.",
+                tDescription: "tools.qrCodeGenerator.url.navDescription",
+            },
+            {
+                label: "Text",
+                tLabel: "tools.qrCodeGenerator.text.label",
+                href: "/qr-code-generator/text",
+                description: "Encode plain text into QR codes.",
+                tDescription: "tools.qrCodeGenerator.text.navDescription",
+            },
+            {
+                label: "Phone",
+                tLabel: "tools.qrCodeGenerator.phone.label",
+                href: "/qr-code-generator/phone",
+                description: "Generate QR codes to dial a number.",
+                tDescription: "tools.qrCodeGenerator.phone.navDescription",
+            },
+        ],
+    },
+    // Add more tools here...
+];
+
+
 
 export const navButtons = [
     // { href: '', icon: "calendar-check", target: "_blank", tooltip: "Schedule a call"  },

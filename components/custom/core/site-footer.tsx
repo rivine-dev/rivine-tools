@@ -1,6 +1,7 @@
 import Logo from "@/components/custom/core/logo";
-import {footerBottomLinks, footerMenuItems, publicUrl} from "@/config/site-config";
+import {footerBottomLinks, footerMenuItems, toolsNavItems, publicUrl} from "@/config/site-config";
 import { getTranslations } from 'next-intl/server';
+import Link from "next/link";
 
 const SiteFooter = async () => {
     const t = await getTranslations();
@@ -31,6 +32,25 @@ const SiteFooter = async () => {
                                                     link.tLabel ? t(link.tLabel) : link.label
                                                 }
                                             </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                        {toolsNavItems.map((item, sectionIdx) => (
+                            <div key={sectionIdx}>
+                                <h3 className="mb-4 font-bold">{item.tLabel ? t(item.tLabel) : item.label}</h3>
+                                <ul className="space-y-4 text-muted-foreground">
+                                    {item.links?.map((link: any, linkIdx) => (
+                                        <li
+                                            key={linkIdx}
+                                            className=" hover:text-primary"
+                                        >
+                                            <Link target={link.blank ? '_blank' : '_self'} href={link.href}>
+                                                {
+                                                    link.tLabel ? t(link.tLabel) : link.label
+                                                }
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>

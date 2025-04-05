@@ -7,6 +7,10 @@
   "tools": {
     "qrCodeGenerator": {
       "title": "Generador de Códigos QR Gratis",
+      "label": "Generador de Códigos QR",
+      "navDescription": "Crea códigos QR para URLs, texto, números de teléfono y más.",
+      "subLabel": "Suite de Generador de Herramientas QR",
+      "subNavDescription": "Genera todo tipo de códigos QR en un solo lugar.",
       "description": "Genere códigos QR al instante con nuestro generador de códigos QR en línea gratuito. Personalice con colores, logotipos y descargas de alta calidad.",
       "keywords": {
         "0": "Generador de Códigos QR",
@@ -19,16 +23,22 @@
       },
       "autoGenerationMessage": "Su Código QR se generará automáticamente",
       "url": {
+        "label": "URL",
+        "navDescription": "Generar códigos QR para enlaces.",
         "title": "Generador de Códigos QR Gratis | Generar Códigos QR Personalizados en Línea",
         "description": "Genere y personalice fácilmente códigos QR para textos. Ideal para compartir contenido en línea, dirigir tráfico o mejorar materiales impresos. Rápido, gratis y sin necesidad de registro.",
         "input": "Ingrese la URL de su sitio web aquí"
       },
       "text": {
+        "label": "Texto",
+        "navDescription": "Codificar texto plano en códigos QR.",
         "title": "Generador de Códigos QR Gratis para Texto | Crear Códigos QR de Texto Personalizados",
         "description": "Genere y personalice fácilmente códigos QR para mensajes de texto. Perfecto para compartir información de manera rápida y eficiente. Rápido, gratis y sin necesidad de registro.",
         "input": "Ingrese su mensaje de texto aquí"
       },
       "phone": {
+        "label": "Teléfono",
+        "navDescription": "Generar códigos QR para marcar un número.",
         "title": "Generador de Códigos QR Gratis para Números de Teléfono | Crear Códigos QR de Teléfono Personalizados",
         "description": "Genere y personalice fácilmente códigos QR para números de teléfono. Ideal para compartir información de contacto al instante. Rápido, gratis y sin necesidad de registro.",
         "input": "Ingrese su número de teléfono aquí"
