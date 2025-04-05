@@ -6,6 +6,7 @@ import {Type, LinkIcon, PhoneIcon} from "lucide-react"
 import * as React from "react";
 import {MenuButton, MenuItem} from "@/components/ui/menu-button";
 import {Card} from "@/components/ui/card";
+import {getNonLocalizedSlug} from "@/i18n/get-localized-path";
 
 const qrUrl = '/qr-code-generator';
 
@@ -35,7 +36,7 @@ export function QrMenu() {
             <Card className="py-0 h-[100%]">
                 <div className="flex overflow-x-auto md:flex-col md:overflow-visible px-2 lg:py-2">
                     {sidebarItems.map((item) => {
-                        const isActive = pathname === `/${item.href}` || pathname === item.href
+                        const isActive = getNonLocalizedSlug(pathname) === `/${item.href}` || getNonLocalizedSlug(pathname) === item.href
 
                         return (
                             <MenuItem className="py-1" key={item.title}>
