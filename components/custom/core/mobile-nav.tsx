@@ -5,11 +5,19 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerTitle, DrawerTrigger} from "@/components/ui/drawer";
-import {navLinks} from "@/config/site-config";
-import {PanelRightClose, PanelRightOpen} from "lucide-react"
+import {toolsNavItems} from "@/config/site-config";
+import {ChevronRight, PanelRightClose, PanelRightOpen} from "lucide-react"
 import {ThemeToggle} from "@/components/theme/theme-toggle";
 import {LocaleSwitcher} from "@/components/custom/locale/locale-switcher";
 import {useTranslations} from "use-intl";
+import {
+    SidebarGroup,
+    SidebarGroupContent,
+    SidebarGroupLabel,
+    SidebarMenu, SidebarMenuButton,
+    SidebarMenuItem, SidebarProvider
+} from "@/components/ui/sidebar";
+import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "@/components/ui/collapsible";
 
 export function MobileNav() {
     const [open, setOpen] = useState(false);
@@ -34,24 +42,63 @@ export function MobileNav() {
                         <PanelRightClose/>
                     </DrawerClose>
                 </DrawerTitle>
-                <div className="flex flex-col gap-4 pt-6">
-                    <MobileLink
-                        href="/"
-                        onOpenChange={setOpen}
-                    >
-                        {t('general.home')}
-                    </MobileLink>
-                    {navLinks.map((item) => (
-                        <MobileLink
-                            key={item.href}
-                            href={item.href}
-                            onOpenChange={setOpen}
-                        >
-                            {
-                                item.tLabel ? t(item.tLabel) : item.label
-                            }
-                        </MobileLink>
-                    ))}
+                <div className="flex flex-col gap-4 pt-6 overflow-y-auto">
+                    <SidebarProvider className="flex-col min-h-[30vh] h-[80vh]">
+                        {toolsNavItems.map((item) =>
+                            "links" in item ? (
+                                <Collapsible
+                                    key={item.label}
+                                    defaultOpen={false}
+                                    className="group/collapsible"
+                                >
+                                    <SidebarGroup>
+                                        <SidebarGroupLabel
+                                            asChild
+                                            className="group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                                        >
+                                            <CollapsibleTrigger className="flex w-full items-center justify-between">
+                                                {item.tLabel ? t(item.tLabel) : item.label}
+                                                <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                                            </CollapsibleTrigger>
+                                        </SidebarGroupLabel>
+                                        <CollapsibleContent>
+                                            <SidebarGroupContent className="ml-2">
+                                                <SidebarMenu>
+                                                    {item.links?.map((link) => (
+                                                        <SidebarMenuItem key={link.label}>
+                                                            <SidebarMenuButton asChild isActive={false}>
+                                                                <Link href={link.href}>
+                                                                    {
+                                                                        link.tLabel ? t(link.tLabel) : link.label
+                                                                    }
+                                                                </Link>
+                                                            </SidebarMenuButton>
+                                                        </SidebarMenuItem>
+                                                    ))}
+                                                </SidebarMenu>
+                                            </SidebarGroupContent>
+                                        </CollapsibleContent>
+                                    </SidebarGroup>
+                                </Collapsible>
+                            ) : (
+                                <SidebarGroup key={item.label}>
+                                    <SidebarGroupContent>
+                                        <SidebarMenu>
+                                            <SidebarMenuItem>
+                                                <SidebarMenuButton asChild isActive={false}>
+                                                    <Link href={item.href ? item.href : '/'}>
+                                                        {
+                                                            item.tLabel ? t(item.tLabel) : item.label
+                                                        }
+                                                    </Link>
+                                                </SidebarMenuButton>
+                                            </SidebarMenuItem>
+                                        </SidebarMenu>
+                                    </SidebarGroupContent>
+                                </SidebarGroup>
+                            )
+                        )}
+                    </SidebarProvider>
                 </div>
                 <DrawerFooter>
                     <div className="flex justify-center">
