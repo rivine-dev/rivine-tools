@@ -1,15 +1,4 @@
-export const navLinks = [
-    // { href: "/projects", label: "Projects" },
-    // { href: "/blog", label: "Blog" },
-    // { href: "/experience", label: "Experience" },
-    // { href: "/about", label: "About", tLabel: "general.about" },
-    // { href: "/contributions", label: "Contributions" },
-    // { href: "/contact", label: "Contact" },
-] satisfies {
-    href: string;
-    label?: string;
-    tLabel?: string;
-}[];
+import {LinkIcon, PhoneIcon, Type} from "lucide-react";
 
 interface ToolLink {
     href: string;
@@ -38,6 +27,25 @@ interface ToolNavItem {
     links?: ToolLink[];
 }
 
+export const qrHomePath = "/qr-code-generator";
+export const qrMenuItems = [
+    {
+        icon: LinkIcon,
+        title: "tools.qrCodeGenerator.url.label",
+        href: `${qrHomePath}`,
+    },
+    {
+        icon: Type,
+        title: "tools.qrCodeGenerator.text.label",
+        href: `${qrHomePath}/text`,
+    },
+    {
+        icon: PhoneIcon,
+        title: "tools.qrCodeGenerator.phone.label",
+        href: `${qrHomePath}/phone`,
+    },
+]
+
 export const toolsNavItems: ToolNavItem[] = [
     {
         label: "QR Code Generator",
@@ -45,7 +53,7 @@ export const toolsNavItems: ToolNavItem[] = [
         description: "Create QR codes for URLs, text, phone numbers, and more.",
         tDescription: "tools.qrCodeGenerator.navDescription",
         featured: {
-            href: "/qr-code-generator",
+            href: qrHomePath,
             label: "QR Tool Generator Suite",
             tLabel: "tools.qrCodeGenerator.subLabel",
             description: "Generate all types of QR codes in one place.",
@@ -56,21 +64,21 @@ export const toolsNavItems: ToolNavItem[] = [
             {
                 label: "URL",
                 tLabel: "tools.qrCodeGenerator.url.label",
-                href: "/qr-code-generator",
+                href: qrHomePath,
                 description: "Generate QR codes for links.",
                 tDescription: "tools.qrCodeGenerator.url.navDescription",
             },
             {
                 label: "Text",
                 tLabel: "tools.qrCodeGenerator.text.label",
-                href: "/qr-code-generator/text",
+                href: `${qrHomePath}/text`,
                 description: "Encode plain text into QR codes.",
                 tDescription: "tools.qrCodeGenerator.text.navDescription",
             },
             {
                 label: "Phone",
                 tLabel: "tools.qrCodeGenerator.phone.label",
-                href: "/qr-code-generator/phone",
+                href: `${qrHomePath}/phone`,
                 description: "Generate QR codes to dial a number.",
                 tDescription: "tools.qrCodeGenerator.phone.navDescription",
             },
@@ -87,6 +95,19 @@ export const navButtons = [
     // { href: user.linkedIn, icon: "linkedin", target: "_blank" },
     //     tooltip: "linkedIn"}
 ]
+
+export const navLinks = [
+    // { href: "/projects", label: "Projects" },
+    // { href: "/blog", label: "Blog" },
+    // { href: "/experience", label: "Experience" },
+    // { href: "/about", label: "About", tLabel: "general.about" },
+    // { href: "/contributions", label: "Contributions" },
+    // { href: "/contact", label: "Contact" },
+] satisfies {
+    href: string;
+    label?: string;
+    tLabel?: string;
+}[];
 
 export const footerMenuItems = [
     {
