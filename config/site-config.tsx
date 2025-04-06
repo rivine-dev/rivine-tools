@@ -1,4 +1,13 @@
 import {LinkIcon, PhoneIcon, Type} from "lucide-react";
+import {
+    general,
+    passwordGenerator,
+    qrCodeGenerator,
+    qrCodePhone,
+    qrCodeText,
+    qrCodeUrl,
+    timer
+} from "@/config/i18n-constants";
 
 interface ToolLink {
     href: string;
@@ -31,17 +40,17 @@ export const qrHomePath = "/qr-code-generator";
 export const qrMenuItems = [
     {
         icon: LinkIcon,
-        title: "tools.qrCodeGenerator.url.label",
+        title: `${qrCodeUrl}.label`,
         href: `${qrHomePath}`,
     },
     {
         icon: Type,
-        title: "tools.qrCodeGenerator.text.label",
+        title: `${qrCodeText}.label`,
         href: `${qrHomePath}/text`,
     },
     {
         icon: PhoneIcon,
-        title: "tools.qrCodeGenerator.phone.label",
+        title: `${qrCodePhone}.label`,
         href: `${qrHomePath}/phone`,
     },
 ]
@@ -49,38 +58,38 @@ export const qrMenuItems = [
 export const toolsNavItems: ToolNavItem[] = [
     {
         label: "QR Code Generator",
-        tLabel: "tools.qrCodeGenerator.label",
+        tLabel: `${qrCodeGenerator}.label`,
         description: "Create QR codes for URLs, text, phone numbers, and more.",
-        tDescription: "tools.qrCodeGenerator.navDescription",
+        tDescription: `${qrCodeGenerator}.navDescription`,
         featured: {
             href: qrHomePath,
             label: "QR Tool Generator Suite",
-            tLabel: "tools.qrCodeGenerator.subLabel",
+            tLabel: `${qrCodeGenerator}.subLabel`,
             description: "Generate all types of QR codes in one place.",
-            tDescription: "tools.qrCodeGenerator.subNavDescription",
+            tDescription: `${qrCodeGenerator}.subNavDescription`,
             icon: "qr",
         },
         links: [
             {
                 label: "URL",
-                tLabel: "tools.qrCodeGenerator.url.label",
+                tLabel: `${qrCodeUrl}.label`,
                 href: qrHomePath,
                 description: "Generate QR codes for links.",
-                tDescription: "tools.qrCodeGenerator.url.navDescription",
+                tDescription: `${qrCodeUrl}.navDescription`,
             },
             {
                 label: "Text",
-                tLabel: "tools.qrCodeGenerator.text.label",
+                tLabel: `${qrCodeText}.label`,
                 href: `${qrHomePath}/text`,
                 description: "Encode plain text into QR codes.",
-                tDescription: "tools.qrCodeGenerator.text.navDescription",
+                tDescription: `${qrCodeText}.navDescription`,
             },
             {
                 label: "Phone",
-                tLabel: "tools.qrCodeGenerator.phone.label",
+                tLabel: `${qrCodePhone}.label`,
                 href: `${qrHomePath}/phone`,
                 description: "Generate QR codes to dial a number.",
-                tDescription: "tools.qrCodeGenerator.phone.navDescription",
+                tDescription: `${qrCodePhone}.navDescription`,
             },
         ],
     },
@@ -113,7 +122,7 @@ export const footerMenuItems = [
     {
         title: "Site",
         links: [
-            { label: "Home", tLabel: "general.home", href: "/" },
+            { label: "Home", tLabel: `${general}.home`, href: "/" },
             ...navLinks
         ],
     },
@@ -149,3 +158,24 @@ export const publicUrl = process.env.PUBLIC_SITE_URL;
 export const siteUrl = process.env.SITE_URL || process.env.NEXT_PUBLIC_VERCEL_URL;
 
 export const appName = process.env.APP_NAME || "Rivine Tools";
+
+export const toolsCards = [
+    {
+        title: `${qrCodeGenerator}.label`,
+        description: `${qrCodeGenerator}.description`,
+        isActive: true,
+        link: `${qrHomePath}`,
+    },
+    {
+        title: `${timer}.label`,
+        description: `${timer}.description`,
+        isActive: false,
+        link: "/timer",
+    },
+    {
+        title: `${passwordGenerator}.label`,
+        description: `${passwordGenerator}.description`,
+        isActive: false,
+        link: "/password-generator",
+    },
+];

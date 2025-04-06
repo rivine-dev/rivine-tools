@@ -15,6 +15,7 @@ import {
 import { Card } from "@/components/ui/card";
 import {Ban, Loader2} from "lucide-react";
 import {useTranslations} from "use-intl";
+import {general} from "@/config/i18n-constants";
 
 type QRCodeCanvasProps = {
     url?: string;
@@ -156,7 +157,7 @@ export default function QRCodeCanvas({
                         </SelectGroup>
                     </SelectContent>
                 </Select>
-                <Button onClick={onDownloadClick} disabled={!url}>{t('general.download')}</Button>
+                <Button onClick={onDownloadClick} disabled={!url}>{t(`${general}.download`)}</Button>
             </div>
         </div>
     );

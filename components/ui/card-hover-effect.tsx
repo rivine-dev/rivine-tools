@@ -1,7 +1,11 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
+import {useTranslations} from "use-intl";
+import {Badge} from "@/components/ui/badge";
 
 export const HoverEffect = ({
                                 items,
@@ -11,10 +15,12 @@ export const HoverEffect = ({
         title: string;
         description: string;
         link: string;
+        isActive?: boolean;
     }[];
     className?: string;
 }) => {
     let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const t = useTranslations()
 
     return (
         <div
@@ -25,7 +31,7 @@ export const HoverEffect = ({
         >
             {items.map((item, idx) => (
                 <Link
-                    href={item?.link}
+                    href={item.isActive ? item.link : '#tools'}
                     key={item?.link}
                     className="relative group  block p-2 h-full w-full"
                     onMouseEnter={() => setHoveredIndex(idx)}
@@ -49,8 +55,15 @@ export const HoverEffect = ({
                         )}
                     </AnimatePresence>
                     <Card>
-                        <CardTitle>{item.title}</CardTitle>
-                        <CardDescription>{item.description}</CardDescription>
+                        <span className="absolute right-0 top-0">
+                            {!item.isActive && (
+                                <Badge>Coming soon</Badge>
+                            )}
+                        </span>
+                        <CardTitle>
+                            {t.has(item.title) ? t(item.title) : item.title}
+                        </CardTitle>
+                        <CardDescription>{t.has(item.description) ? t(item.description) : item.description}</CardDescription>
                     </Card>
                 </Link>
             ))}
