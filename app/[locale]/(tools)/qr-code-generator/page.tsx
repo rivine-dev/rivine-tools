@@ -1,8 +1,9 @@
 import QrGenerator from "@/components/custom/qr-code/qr-generator";
-import {Metadata, ResolvingMetadata} from "next";
-import {appName, siteUrl} from "@/config/site-config";
+import {Metadata} from "next";
+import {appName, qrHomePath, siteUrl} from "@/config/site-config";
 import {getTranslations} from "next-intl/server";
 import {getLocalizedPath} from "@/i18n/get-localized-path";
+import {qrCodeGenerator, qrCodeUrl} from "@/config/i18n-constants";
 
 export default function QRCodeGenerator() {
   return (
@@ -25,30 +26,30 @@ export const generateMetadata = async (
   const url = `${siteUrl}${getLocalizedPath({ slug: '', locale })}`
 
   return {
-    title: `${appName} | ${t('tools.qrCodeGenerator.title')}`,
+    title: `${appName} | ${t(`${qrCodeGenerator}.title`)}`,
     description:
-        t('tools.qrCodeGenerator.description'),
-    keywords: Array.from({ length: 7 }, (_, i) => t(`tools.qrCodeGenerator.keywords.${i}`)),
+        t(`${qrCodeGenerator}.description`),
+    keywords: Array.from({ length: 7 }, (_, i) => t(`${qrCodeGenerator}.keywords.${i}`)),
     openGraph: {
-      title: `${t('tools.qrCodeGenerator.url.title')} | Free QR Code Generator`,
-      description: t('tools.qrCodeGenerator.url.description'),
-      url: `${url}/qr-code-generator`,
+      title: `${t(`${qrCodeUrl}.title`)} | Free QR Code Generator`,
+      description: t(`${qrCodeUrl}.description`),
+      url: `${url}${qrHomePath}`,
       siteName: appName,
       images: [
         {
           url: `${siteUrl}/logo/logo-stone.png`, // Replace with your OG image URL
           width: 1200,
           height: 630,
-          alt: t('tools.qrCodeGenerator.title'),
+          alt: t(`${qrCodeGenerator}.title`),
         },
       ],
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: t('tools.qrCodeGenerator.url.title'),
+      title: t(`${qrCodeUrl}.title`),
       description:
-          t('tools.qrCodeGenerator.url.description'),
+          t(`${qrCodeUrl}.description`),
       images: [`${siteUrl}/logo/logo-stone.png`],
     },
   };

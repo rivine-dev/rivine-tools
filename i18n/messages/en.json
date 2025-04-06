@@ -1,4 +1,20 @@
 {
+  "home": {
+    "label": "A growing suite of fast, reliable tools",
+    "subLabel": "Built for simplicity and performance. New tools are added regularly to help users stay productive and get things done—without distractions or clutter",
+    "title": "Free online tools",
+    "description": "Explore fast, free online tools for everyday tasks. Rivine Tools provides a seamless experience with privacy-focused web utilities—constantly expanding to meet your needs.",
+    "exploreTools": "Explore Tools",
+    "keywords": {
+      "0": "Online tools",
+      "1": "Web tools",
+      "2": "Image Editor",
+      "3": "Text Editor",
+      "4": "Instagram Tools",
+      "5": "Facebook Tools",
+      "6": "QR Code Generator"
+    }
+  },
   "general": {
     "download": "Download",
     "about": "About",
@@ -42,6 +58,55 @@
         "title": "Free QR Code Generator for Phone Numbers | Create Custom Phone QR Codes",
         "description": "Easily generate and customize QR codes for phone numbers. Ideal for sharing contact information instantly. Fast, free, and no signup required.",
         "input": "Enter your phone number here"
+      }
+    },
+    "timer": {
+      "title": "Online Timer",
+      "label": "Timer",
+      "navDescription": "Set timers for various tasks and activities.",
+      "subLabel": "Timer Tool Suite",
+      "subNavDescription": "Manage your time effectively with our online timer.",
+      "description": "Use our free online timer to keep track of time for tasks, workouts, and more. Customize alerts and durations.",
+      "keywords": {
+        "0": "Online Timer",
+        "1": "Free Timer",
+        "2": "Task Timer",
+        "3": "Workout Timer",
+        "4": "Set Timer",
+        "5": "Countdown Timer",
+        "6": "Timer Online"
+      }
+    },
+    "passwordGenerator": {
+      "title": "Generador de Contraseñas Seguras",
+      "label": "Generador de Contraseñas",
+      "navDescription": "Cree contraseñas seguras y aleatorias para proteger sus cuentas.",
+      "subLabel": "Suite de Generador de Contraseñas",
+      "subNavDescription": "Genere contraseñas fuertes y únicas al instante.",
+      "description": "Utilice nuestro generador de contraseñas en línea gratuito para crear contraseñas seguras y aleatorias. Personalice la longitud y los caracteres para satisfacer sus necesidades de seguridad.",
+      "keywords": {
+        "0": "Generador de Contraseñas",
+        "1": "Contraseñas Seguras",
+        "2": "Crear Contraseña",
+        "3": "Contraseña Aleatoria",
+        "4": "Generar Contraseña",
+        "5": "Contraseña Fuerte",
+        "6": "Generador de Contraseñas en Línea"
+      },
+      "autoGenerationMessage": "Su contraseña se generará automáticamente",
+      "length": {
+        "label": "Longitud",
+        "navDescription": "Seleccione la longitud de la contraseña.",
+        "title": "Generador de Contraseñas Seguras | Personalizar Longitud de Contraseña",
+        "description": "Elija la longitud de su contraseña para garantizar la seguridad adecuada. Recomendado: al menos 12 caracteres.",
+        "input": "Ingrese la longitud de la contraseña aquí"
+      },
+      "characters": {
+        "label": "Caracteres",
+        "navDescription": "Seleccione los tipos de caracteres para incluir.",
+        "title": "Generador de Contraseñas Seguras | Personalizar Caracteres de Contraseña",
+        "description": "Seleccione los tipos de caracteres que desea incluir en su contraseña: letras, números, símbolos.",
+        "input": "Seleccione los caracteres deseados"
       }
     }
   }

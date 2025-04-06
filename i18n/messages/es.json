@@ -1,4 +1,20 @@
 {
+  "home": {
+    "label": "Una creciente suite de herramientas rápidas y confiables",
+    "subLabel": "Construido para la simplicidad y el rendimiento. Se agregan nuevas herramientas regularmente para ayudar a los usuarios a mantenerse productivos y hacer las cosas, sin distracciones ni desorden",
+    "title": "Herramientas en línea gratuitas",
+    "description": "Explore herramientas en línea rápidas y gratuitas para tareas cotidianas. Rivine Tools proporciona una experiencia fluida con utilidades web centradas en la privacidad, que se expanden constantemente para satisfacer sus necesidades.",
+    "exploreTools": "Explorar herramientas",
+    "keywords": {
+      "0": "Herramientas en línea",
+      "1": "Herramientas web",
+      "2": "Editor de imágenes",
+      "3": "Editor de texto",
+      "4": "Herramientas de Instagram",
+      "5": "Herramientas de Facebook",
+      "6": "Generador de códigos QR"
+    }
+  },
   "general": {
     "download": "Descargar",
     "about": "Acerca de",
@@ -42,6 +58,55 @@
         "title": "Generador de Códigos QR Gratis para Números de Teléfono | Crear Códigos QR de Teléfono Personalizados",
         "description": "Genere y personalice fácilmente códigos QR para números de teléfono. Ideal para compartir información de contacto al instante. Rápido, gratis y sin necesidad de registro.",
         "input": "Ingrese su número de teléfono aquí"
+      }
+    },
+    "timer": {
+      "title": "Temporizador en línea",
+      "label": "Temporizador",
+      "navDescription": "Establezca temporizadores para varias tareas y actividades.",
+      "subLabel": "Suite de herramientas de temporizador",
+      "subNavDescription": "Gestione su tiempo de manera efectiva con nuestro temporizador en línea.",
+      "description": "Utilice nuestro temporizador en línea gratuito para realizar un seguimiento del tiempo para tareas, entrenamientos y más. Personalice alertas y duraciones.",
+      "keywords": {
+        "0": "Temporizador en línea",
+        "1": "Temporizador gratuito",
+        "2": "Temporizador de tareas",
+        "3": "Temporizador de entrenamiento",
+        "4": "Establecer temporizador",
+        "5": "Temporizador de cuenta regresiva",
+        "6": "Temporizador en línea"
+      }
+    },
+    "passwordGenerator": {
+      "title": "Generador de Contraseñas Seguras",
+      "label": "Generador de Contraseñas",
+      "navDescription": "Cree contraseñas seguras y aleatorias para proteger sus cuentas.",
+      "subLabel": "Suite de Generador de Contraseñas",
+      "subNavDescription": "Genere contraseñas fuertes y únicas al instante.",
+      "description": "Utilice nuestro generador de contraseñas en línea gratuito para crear contraseñas seguras y aleatorias. Personalice la longitud y los caracteres para satisfacer sus necesidades de seguridad.",
+      "keywords": {
+        "0": "Generador de Contraseñas",
+        "1": "Contraseñas Seguras",
+        "2": "Crear Contraseña",
+        "3": "Contraseña Aleatoria",
+        "4": "Generar Contraseña",
+        "5": "Contraseña Fuerte",
+        "6": "Generador de Contraseñas en Línea"
+      },
+      "autoGenerationMessage": "Su contraseña se generará automáticamente",
+      "length": {
+        "label": "Longitud",
+        "navDescription": "Seleccione la longitud de la contraseña.",
+        "title": "Generador de Contraseñas Seguras | Personalizar Longitud de Contraseña",
+        "description": "Elija la longitud de su contraseña para garantizar la seguridad adecuada. Recomendado: al menos 12 caracteres.",
+        "input": "Ingrese la longitud de la contraseña aquí"
+      },
+      "characters": {
+        "label": "Caracteres",
+        "navDescription": "Seleccione los tipos de caracteres para incluir.",
+        "title": "Generador de Contraseñas Seguras | Personalizar Caracteres de Contraseña",
+        "description": "Seleccione los tipos de caracteres que desea incluir en su contraseña: letras, números, símbolos.",
+        "input": "Seleccione los caracteres deseados"
       }
     }
   }
