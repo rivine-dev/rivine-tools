@@ -5,6 +5,7 @@ import {SiteFooter} from "@/components/custom/core/site-footer";
 import {ThemeProvider} from "@/components/theme/theme-provider";
 import "../globals.css";
 import {i18n} from "@/i18n/config";
+import PagesTopLoaderProvider from "@/components/providers/pages-top-loader-provider";
 
 export default async function LocaleLayout({
                                                children,
@@ -29,13 +30,15 @@ export default async function LocaleLayout({
                     disableTransitionOnChange
                 >
                     <NextIntlClientProvider>
-                        <div className="flex flex-col min-h-screen">
-                            <SiteHeader />
-                            <div className="flex-grow">
-                                {children}
+                        <PagesTopLoaderProvider>
+                            <div className="flex flex-col min-h-screen">
+                                <SiteHeader />
+                                <div className="flex-grow">
+                                    {children}
+                                </div>
+                                <SiteFooter />
                             </div>
-                            <SiteFooter />
-                        </div>
+                        </PagesTopLoaderProvider>
                     </NextIntlClientProvider>
                 </ThemeProvider>
             </body>
