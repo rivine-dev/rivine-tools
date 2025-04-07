@@ -27,11 +27,11 @@ const SiteFooter = async () => {
                                             key={linkIdx}
                                             className=" hover:text-primary"
                                         >
-                                            <a target={link.blank ? '_blank' : '_self'} href={link.href}>
+                                            <Link target={link.blank ? '_blank' : '_self'} href={link.href}>
                                                 {
                                                     link.tLabel ? t(link.tLabel) : link.label
                                                 }
-                                            </a>
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
