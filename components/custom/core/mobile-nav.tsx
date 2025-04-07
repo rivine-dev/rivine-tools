@@ -48,7 +48,7 @@ export function MobileNav() {
                             "links" in item ? (
                                 <Collapsible
                                     key={item.label}
-                                    defaultOpen={false}
+                                    defaultOpen
                                     className="group/collapsible"
                                 >
                                     <SidebarGroup>
