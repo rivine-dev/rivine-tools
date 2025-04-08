@@ -4,7 +4,7 @@ import { LoadingBarContainer } from 'react-top-loading-bar';
 import RouteChangeLoader from "@/components/providers/route-change-loader";
 import { useEffect, useState } from "react";
 
-export default function PagesTopLoaderProvider({ children }: { children: React.ReactNode }) {
+export default function PagesTopLoader() {
     const [primaryColor, setPrimaryColor] = useState<string | null>(null);
 
     useEffect(() => {
@@ -19,7 +19,6 @@ export default function PagesTopLoaderProvider({ children }: { children: React.R
     return (
         <LoadingBarContainer>
             <RouteChangeLoader color={primaryColor} />
-            {children}
         </LoadingBarContainer>
     );
 }
