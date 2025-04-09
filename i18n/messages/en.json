@@ -42,7 +42,7 @@
         "label": "URL",
         "navDescription": "Generate QR codes for links.",
         "title": "Free QR Code Generator | Generate Custom QR Codes Online",
-        "description": "Easily generate and customize QR codes for texts. Ideal for sharing online content, directing traffic, or enhancing print materials. Fast, free, and no signup required.",
+        "description": "Easily generate and customize QR codes for URLs. Ideal for sharing online content, directing traffic, or enhancing print materials. Fast, free, and no signup required.",
         "input": "Enter your website URL here"
       },
       "text": {

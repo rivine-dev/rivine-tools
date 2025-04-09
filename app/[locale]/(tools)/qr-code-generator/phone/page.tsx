@@ -4,10 +4,33 @@ import {appName, qrHomePath, siteUrl} from "@/config/site-config";
 import {getTranslations} from "next-intl/server";
 import {getLocalizedPath} from "@/i18n/get-localized-path";
 import {qrCodeGenerator, qrCodePhone} from "@/config/i18n-constants";
+import JsonLd from "@/components/custom/core/json-ld";
 
-export default function QRCodeGenerator() {
+export default async function QRCodeGenerator({params}: { params: { locale: string } }) {
+  const {locale} = await params;
+  const t = await getTranslations({locale});
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: t(`${qrCodeGenerator}.label`),
+    url: `${siteUrl}${getLocalizedPath({slug: `${qrHomePath}/phone`, locale})}`,
+    applicationCategory: "Utility",
+    operatingSystem: "All",
+    description: t(`${qrCodePhone}.description`),
+    inLanguage: locale,
+    publisher: {
+      "@type": "Organization",
+      name: appName,
+      url: siteUrl,
+    },
+  };
+
   return (
-      <QrGenerator type="phone" initialValue="+1 "></QrGenerator>
+      <>
+        <JsonLd data={jsonLd}/>
+        <QrGenerator type="phone" initialValue="+1 "></QrGenerator>
+      </>
   );
 }
 

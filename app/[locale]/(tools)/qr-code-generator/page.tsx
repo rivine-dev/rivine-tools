@@ -13,17 +13,12 @@ export default async function QRCodeGenerator({ params }: { params: { locale: st
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: t(`${qrCodeGenerator}.title`),
+    name: t(`${qrCodeGenerator}.label`),
     url: `${siteUrl}${getLocalizedPath({slug: qrHomePath, locale})}`,
     applicationCategory: "Utility",
     operatingSystem: "All",
-    description: t(`${qrCodeGenerator}.description`),
+    description: t(`${qrCodeUrl}.description`),
     inLanguage: locale,
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
     publisher: {
       "@type": "Organization",
       name: appName,
