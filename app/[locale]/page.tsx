@@ -1,25 +1,36 @@
 import React from "react";
-import {Spotlight} from "@/components/ui/spotlight";
-import {appName, siteUrl, toolsCards} from "@/config/site-config";
-import {HoverBorderGradient} from "@/components/ui/hover-border-gradient";
-import {HoverEffect} from "@/components/ui/card-hover-effect";
+import { Spotlight } from "@/components/ui/spotlight";
+import { appName, siteUrl, toolsCards } from "@/config/site-config";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { HoverEffect } from "@/components/ui/card-hover-effect";
 import Link from "next/link";
-import {Metadata} from "next";
-import {getTranslations} from "next-intl/server";
-import {getLocalizedPath} from "@/i18n/get-localized-path";
-import {home} from "@/config/i18n-constants";
+import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { getLocalizedPath } from "@/i18n/get-localized-path";
+import { home } from "@/config/i18n-constants";
 
-export default async function Home() {
-    const t = await getTranslations();
+type PageProps = {
+    params: Promise<{ locale: string }>;
+    searchParams?: Promise<Record<string, string | string[] | undefined>>; // Optional, as it's not used
+};
+
+export default async function Home({ params }: PageProps) {
+    const resolvedParams = await params; // Await the Promise
+    const { locale } = resolvedParams; // Extract locale from resolved params
+    const t = await getTranslations({ locale }); // Pass locale to getTranslations
+
     return (
         <div className="relative z-0 -mt-20">
             <div
-                className="h-[90vh] w-full rounded-md flex items-center justify-center antialiased bg-grid-white/[0.02] relative overflow-hidden">
-                <Spotlight/>
-                <div className=" p-4 max-w-7xl  mx-auto relative z-10  w-full pt-20">
-                    <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b
-                    from-neutral-800 to-neutral-400
-                     dark:from-neutral-50 dark:to-neutral-400 bg-opacity-50">
+                className="h-[90vh] w-full rounded-md flex items-center justify-center antialiased bg-grid-white/[0.02] relative overflow-hidden"
+            >
+                <Spotlight />
+                <div className="p-4 max-w-7xl mx-auto relative z-10 w-full pt-20">
+                    <h1
+                        className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b
+            from-neutral-800 to-neutral-400
+            dark:from-neutral-50 dark:to-neutral-400 bg-opacity-50"
+                    >
                         {appName}
                     </h1>
                     <p className="mt-4 font-normal text-base dark:text-neutral-300 max-w-lg text-center mx-auto">
@@ -40,31 +51,22 @@ export default async function Home() {
 
             <div id="tools" className="py-20">
                 <div className="max-w-5xl mx-auto px-8">
-                    <HoverEffect items={toolsCards}/>
+                    <HoverEffect items={toolsCards} />
                 </div>
             </div>
         </div>
     );
 }
 
-type PageProps = {
-    params: Promise<{
-        locale: string
-    }>
-    searchParams: Promise<Record<string, string | string[] | undefined>>
-}
-
-export const generateMetadata = async (
-    props: PageProps,
-): Promise<Metadata> => {
-    const { locale } = await props.params
-    const t = await getTranslations({ locale})
-    const url = `${siteUrl}${getLocalizedPath({ slug: '', locale })}`
+export const generateMetadata = async (props: PageProps): Promise<Metadata> => {
+    const resolvedParams = await props.params; // Await the Promise
+    const { locale } = resolvedParams; // Extract locale from resolved params
+    const t = await getTranslations({ locale }); // Pass locale to getTranslations
+    const url = `${siteUrl}${getLocalizedPath({ slug: "", locale })}`;
 
     return {
         title: `${appName} | ${t(`${home}.title`)}`,
-        description:
-            t(`${home}.description`),
+        description: t(`${home}.description`),
         keywords: Array.from({ length: 7 }, (_, i) => t(`${home}.keywords.${i}`)),
         openGraph: {
             title: `${t(`${home}.title`)} | Free online tools`,
@@ -84,8 +86,7 @@ export const generateMetadata = async (
         twitter: {
             card: "summary_large_image",
             title: t(`${home}.title`),
-            description:
-                t(`${home}.description`),
+            description: t(`${home}.description`),
             images: [`${siteUrl}/logo/logo-stone.png`],
         },
     };
