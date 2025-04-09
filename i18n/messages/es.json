@@ -93,6 +93,29 @@
         "5": "Contraseña Fuerte",
         "6": "Generador de Contraseñas en Línea"
       },
+      "page": {
+        "description": "Generar contraseñas únicas y fuertes",
+        "generatePwd": "Regenerar Contraseña",
+        "strong": {
+          "label": "Fuerte",
+          "message": "¡Excelente elección!"
+        },
+        "moderate": {
+          "label": "Moderado",
+          "message": "No está mal, pero tampoco es Fort Knox."
+        },
+        "weak": {
+          "label": "Débil",
+          "message": "Necesita mejora."
+        },
+        "pwLength": "Longitud de la contraseña",
+        "form": {
+          "uppercase": "Incluir letras mayúsculas",
+          "lowercase": "Incluir letras minúsculas",
+          "numbers": "Incluir números",
+          "symbols": "Incluir símbolos"
+        }
+      },
       "autoGenerationMessage": "Su contraseña se generará automáticamente",
       "length": {
         "label": "Longitud",

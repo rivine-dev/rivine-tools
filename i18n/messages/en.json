@@ -42,7 +42,7 @@
         "label": "URL",
         "navDescription": "Generate QR codes for links.",
         "title": "Free QR Code Generator | Generate Custom QR Codes Online",
-        "description": "Easily generate and customize QR codes for texts. Ideal for sharing online content, directing traffic, or enhancing print materials. Fast, free, and no signup required.",
+        "description": "Easily generate and customize QR codes for URLs. Ideal for sharing online content, directing traffic, or enhancing print materials. Fast, free, and no signup required.",
         "input": "Enter your website URL here"
       },
       "text": {
@@ -78,35 +78,58 @@
       }
     },
     "passwordGenerator": {
-      "title": "Generador de Contraseñas Seguras",
-      "label": "Generador de Contraseñas",
-      "navDescription": "Cree contraseñas seguras y aleatorias para proteger sus cuentas.",
-      "subLabel": "Suite de Generador de Contraseñas",
-      "subNavDescription": "Genere contraseñas fuertes y únicas al instante.",
-      "description": "Utilice nuestro generador de contraseñas en línea gratuito para crear contraseñas seguras y aleatorias. Personalice la longitud y los caracteres para satisfacer sus necesidades de seguridad.",
+      "title": "Password Generator Free",
+      "label": "Password Generator",
+      "navDescription": "Create secure and random passwords to protect your accounts.",
+      "subLabel": "Password Generator Suite",
+      "subNavDescription": "Instantly generate strong and unique passwords.",
+      "description": "Use our free online password generator to create secure and random passwords. Customize the length and characters to meet your security needs.",
       "keywords": {
-        "0": "Generador de Contraseñas",
-        "1": "Contraseñas Seguras",
-        "2": "Crear Contraseña",
-        "3": "Contraseña Aleatoria",
-        "4": "Generar Contraseña",
-        "5": "Contraseña Fuerte",
-        "6": "Generador de Contraseñas en Línea"
+        "0": "Password Generator",
+        "1": "Secure Passwords",
+        "2": "Create Password",
+        "3": "Random Password",
+        "4": "Generate Password",
+        "5": "Strong Password",
+        "6": "Online Password Generator"
       },
-      "autoGenerationMessage": "Su contraseña se generará automáticamente",
+      "page": {
+        "description": "Generate strong unique passwords",
+        "generatePwd": "Regenerate Password",
+        "strong": {
+          "label": "Strong",
+          "message": "Excellent choice!"
+        },
+        "moderate": {
+          "label": "Moderate",
+          "message": "Not bad, but not Fort Knox either."
+        },
+        "weak": {
+          "label": "Weak",
+          "message": "Needs improvement."
+        },
+        "pwLength": "Password length",
+        "form": {
+          "uppercase": "Include Uppercase letters",
+          "lowercase": "Include Uppercase letters",
+          "numbers": "Include Numbers",
+          "symbols": "Include Symbols"
+        }
+      },
+      "autoGenerationMessage": "Your password will be generated automatically",
       "length": {
-        "label": "Longitud",
-        "navDescription": "Seleccione la longitud de la contraseña.",
-        "title": "Generador de Contraseñas Seguras | Personalizar Longitud de Contraseña",
-        "description": "Elija la longitud de su contraseña para garantizar la seguridad adecuada. Recomendado: al menos 12 caracteres.",
-        "input": "Ingrese la longitud de la contraseña aquí"
+        "label": "Length",
+        "navDescription": "Select the password length.",
+        "title": "Secure Password Generator | Customize Password Length",
+        "description": "Choose your password length to ensure adequate security. Recommended: at least 12 characters.",
+        "input": "Enter password length here"
       },
       "characters": {
-        "label": "Caracteres",
-        "navDescription": "Seleccione los tipos de caracteres para incluir.",
-        "title": "Generador de Contraseñas Seguras | Personalizar Caracteres de Contraseña",
-        "description": "Seleccione los tipos de caracteres que desea incluir en su contraseña: letras, números, símbolos.",
-        "input": "Seleccione los caracteres deseados"
+        "label": "Characters",
+        "navDescription": "Select the types of characters to include.",
+        "title": "Secure Password Generator | Customize Password Characters",
+        "description": "Select the types of characters you want to include in your password: letters, numbers, symbols.",
+        "input": "Select desired characters"
       }
     }
   }
