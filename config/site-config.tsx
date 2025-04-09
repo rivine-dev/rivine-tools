@@ -180,7 +180,7 @@ export const footerBottomLinks = [
 
 export const publicUrl = process.env.PUBLIC_SITE_URL;
 
-export const siteUrl = process.env.SITE_URL || process.env.NEXT_PUBLIC_VERCEL_URL;
+export const siteUrl = process.env.SITE_URL || process.env.NEXT_PUBLIC_VERCEL_URL || "https://tools.rivine.dev";
 
 export const appName = process.env.APP_NAME || "Rivine Tools";
 
