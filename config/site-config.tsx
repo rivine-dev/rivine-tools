@@ -55,6 +55,8 @@ export const qrMenuItems = [
     },
 ]
 
+export const passwordGeneratorPath = "/password-generator";
+
 export const toolsNavItems: ToolNavItem[] = [
     {
         label: "QR Code Generator",
@@ -93,6 +95,29 @@ export const toolsNavItems: ToolNavItem[] = [
             },
         ],
     },
+    {
+        label: "Password generator",
+        tLabel: `${passwordGenerator}.label`,
+        description: "Create secure passwords.",
+        tDescription: `${passwordGenerator}.navDescription`,
+        featured: {
+            href: passwordGeneratorPath,
+            label: "QR Tool Generator Suite",
+            tLabel: `${passwordGenerator}.subLabel`,
+            description: "Generate various passwords.",
+            tDescription: `${passwordGenerator}.subNavDescription`,
+            icon: "qr",
+        },
+        links: [
+            {
+                label: "Password Generator",
+                tLabel: `${passwordGenerator}.label`,
+                href: passwordGeneratorPath,
+                description: "Generate QR codes for links.",
+                tDescription: `${passwordGenerator}.navDescription`,
+            },
+        ],
+    }
     // Add more tools here...
 ];
 
@@ -167,15 +192,15 @@ export const toolsCards = [
         link: `${qrHomePath}`,
     },
     {
+        title: `${passwordGenerator}.label`,
+        description: `${passwordGenerator}.description`,
+        isActive: true,
+        link: `${passwordGeneratorPath}`,
+    },
+    {
         title: `${timer}.label`,
         description: `${timer}.description`,
         isActive: false,
         link: "/timer",
-    },
-    {
-        title: `${passwordGenerator}.label`,
-        description: `${passwordGenerator}.description`,
-        isActive: false,
-        link: "/password-generator",
     },
 ];
