@@ -5,7 +5,7 @@ import {
     qrCodeGenerator,
     qrCodePhone,
     qrCodeText,
-    qrCodeUrl,
+    qrCodeUrl, textToHandwriting,
     timer
 } from "@/config/i18n-constants";
 
@@ -202,5 +202,11 @@ export const toolsCards = [
         description: `${timer}.description`,
         isActive: false,
         link: "/timer",
+    },
+    {
+        title: `${textToHandwriting}.label`,
+        description: `${textToHandwriting}.description`,
+        isActive: false,
+        link: "/text-to-handwriting",
     },
 ];

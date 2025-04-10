@@ -131,6 +131,23 @@
         "description": "Seleccione los tipos de caracteres que desea incluir en su contraseña: letras, números, símbolos.",
         "input": "Seleccione los caracteres deseados"
       }
+    },
+    "textToHandwriting": {
+      "title": "Texto a Manuscrito",
+      "label": "Texto a Manuscrito",
+      "navDescription": "Convierte texto en escritura a mano realista.",
+      "subLabel": "Suite de Herramientas de Manuscrito",
+      "subNavDescription": "Transforma tu texto en una hermosa escritura a mano.",
+      "description": "Utiliza nuestra herramienta para convertir texto en estilos de escritura a mano realistas. Personaliza fuentes y tamaños.",
+      "keywords": {
+        "0": "Texto a Manuscrito",
+        "1": "Convertidor de Manuscrito",
+        "2": "Escritura a Mano Realista",
+        "3": "Estilos de Manuscrito",
+        "4": "Convertidor de Texto",
+        "5": "Manuscrito en Línea",
+        "6": "Manuscrito Personalizado"
+      }
     }
   }
 }
