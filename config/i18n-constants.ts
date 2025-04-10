@@ -15,3 +15,5 @@ export const qrCodePhone = `${qrCodeGenerator}.phone`;
 export const timer = `${tools}.timer`;
 
 export const passwordGenerator = `${tools}.passwordGenerator`;
+
+export const textToHandwriting = `${tools}.textToHandwriting`;
