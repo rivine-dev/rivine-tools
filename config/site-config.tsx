@@ -6,7 +6,7 @@ import {
     qrCodeGenerator,
     qrCodePhone,
     qrCodeText,
-    qrCodeUrl, textToHandwriting,
+    qrCodeUrl, text, textCompare, textToHandwriting,
     timer
 } from "@/config/i18n-constants";
 
@@ -59,6 +59,8 @@ export const qrMenuItems = [
 export const passwordGeneratorPath = "/password-generator";
 
 export const timerPath = "/timer";
+
+export const textComparePath = "/text-compare";
 
 export const toolsNavItems: ToolNavItem[] = [
     {
@@ -140,6 +142,28 @@ export const toolsNavItems: ToolNavItem[] = [
                 href: timerPath,
                 description: "clocks.",
                 tDescription: `${timer}.navDescription`,
+            },
+        ],
+    },
+    {
+        label: "Text",
+        tLabel: `${text}.label`,
+        description: "Clocks",
+        tDescription: `${text}.navDescription`,
+        featured: {
+            href: textComparePath,
+            label: "Clock Suite",
+            tLabel: `${text}.subLabel`,
+            description: "clocks.",
+            tDescription: `${text}.subNavDescription`,
+        },
+        links: [
+            {
+                label: "Text Compare",
+                tLabel: `${textCompare}.label`,
+                href: textComparePath,
+                description: "clocks.",
+                tDescription: `${textCompare}.navDescription`,
             },
         ],
     }
