@@ -19,3 +19,7 @@ export const timer = `${tools}.timer`;
 export const passwordGenerator = `${tools}.passwordGenerator`;
 
 export const textToHandwriting = `${tools}.textToHandwriting`;
+
+export const text = `${tools}.text`;
+
+export const textCompare = `${tools}.textCompare`;
