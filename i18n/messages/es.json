@@ -18,7 +18,9 @@
   "general": {
     "download": "Descargar",
     "about": "Acerca de",
-    "home": "Página Principal"
+    "home": "Página Principal",
+    "cancel": "Cancelar",
+    "save": "Guardar"
   },
   "tools": {
     "qrCodeGenerator": {
@@ -60,6 +62,14 @@
         "input": "Ingrese su número de teléfono aquí"
       }
     },
+    "clock": {
+      "title": "Reloj",
+      "label": "Reloj",
+      "navDescription": "Configura temporizadores para una variedad de tareas y actividades.",
+      "subLabel": "Suite de Reloj",
+      "subNavDescription": "Gestiona tu tiempo eficientemente con nuestro completo temporizador en línea.",
+      "description": "Utiliza nuestro versátil temporizador en línea para seguir el tiempo de tareas, entrenamientos y más. Personaliza alertas y duraciones según tus necesidades."
+    },
     "timer": {
       "title": "Temporizador en línea",
       "label": "Temporizador",
@@ -67,6 +77,22 @@
       "subLabel": "Suite de herramientas de temporizador",
       "subNavDescription": "Gestione su tiempo de manera efectiva con nuestro temporizador en línea.",
       "description": "Utilice nuestro temporizador en línea gratuito para realizar un seguimiento del tiempo para tareas, entrenamientos y más. Personalice alertas y duraciones.",
+      "page": {
+        "paused": "Pausado",
+        "running": "En ejecución"
+      },
+      "dialog": {
+        "title": "Configuración del temporizador",
+        "presets": "Preajustes",
+        "custom": "Duración personalizada",
+        "pomodoro": "Pomodoro",
+        "short": "Descanso corto",
+        "focus": "Enfoque",
+        "hours": "Horas",
+        "min": "Minutos",
+        "sec": "Segundos",
+        "error": "Por favor, establezca una duración de tiempo"
+      },
       "keywords": {
         "0": "Temporizador en línea",
         "1": "Temporizador gratuito",
