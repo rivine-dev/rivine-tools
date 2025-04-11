@@ -1,5 +1,6 @@
 import {LinkIcon, PhoneIcon, Type} from "lucide-react";
 import {
+    clock,
     general,
     passwordGenerator,
     qrCodeGenerator,
@@ -56,6 +57,8 @@ export const qrMenuItems = [
 ]
 
 export const passwordGeneratorPath = "/password-generator";
+
+export const timerPath = "/timer";
 
 export const toolsNavItems: ToolNavItem[] = [
     {
@@ -115,6 +118,28 @@ export const toolsNavItems: ToolNavItem[] = [
                 href: passwordGeneratorPath,
                 description: "Generate QR codes for links.",
                 tDescription: `${passwordGenerator}.navDescription`,
+            },
+        ],
+    },
+    {
+        label: "Clock",
+        tLabel: `${clock}.label`,
+        description: "Clocks",
+        tDescription: `${clock}.navDescription`,
+        featured: {
+            href: timerPath,
+            label: "Clock Suite",
+            tLabel: `${clock}.subLabel`,
+            description: "clocks.",
+            tDescription: `${clock}.subNavDescription`,
+        },
+        links: [
+            {
+                label: "Timer",
+                tLabel: `${timer}.label`,
+                href: timerPath,
+                description: "clocks.",
+                tDescription: `${timer}.navDescription`,
             },
         ],
     }
@@ -200,7 +225,7 @@ export const toolsCards = [
     {
         title: `${timer}.label`,
         description: `${timer}.description`,
-        isActive: false,
+        isActive: true,
         link: "/timer",
     },
     {

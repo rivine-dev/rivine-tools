@@ -18,7 +18,9 @@
   "general": {
     "download": "Download",
     "about": "About",
-    "home": "Home"
+    "home": "Home",
+    "cancel": "Cancel",
+    "save": "Save"
   },
   "tools" : {
     "qrCodeGenerator": {
@@ -60,6 +62,14 @@
         "input": "Enter your phone number here"
       }
     },
+    "clock": {
+      "title": "Clock",
+      "label": "Clock",
+      "navDescription": "Set timers for a variety of tasks and activities.",
+      "subLabel": "Clock Suite",
+      "subNavDescription": "Efficiently manage your time with our comprehensive online timer.",
+      "description": "Utilize our versatile online timer to track time for tasks, workouts, and more. Customize alerts and durations to suit your needs."
+    },
     "timer": {
       "title": "Online Timer",
       "label": "Timer",
@@ -67,6 +77,22 @@
       "subLabel": "Timer Tool Suite",
       "subNavDescription": "Manage your time effectively with our online timer.",
       "description": "Use our free online timer to keep track of time for tasks, workouts, and more. Customize alerts and durations.",
+      "page": {
+        "paused": "Paused",
+        "running": "Running"
+      },
+      "dialog": {
+        "title": "Timer Settings",
+        "presets": "Presets",
+        "custom": "Custom Duration",
+        "pomodoro": "Pomodoro",
+        "short": "Short Break",
+        "focus": "Focus",
+        "hours": "Hours",
+        "min": "Minutes",
+        "sec": "Seconds",
+        "error": "Please set a time duration"
+      },
       "keywords": {
         "0": "Online Timer",
         "1": "Free Timer",
