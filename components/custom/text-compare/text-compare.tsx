@@ -507,29 +507,24 @@ export function TextDiffViewer() {
             <div className="space-y-4 mt-4">
 
                 {
-                    showDiffViewer && (
+                    (showDiffViewer && (diffResult.left.length > 0 || diffResult.right.length > 0)) && (
                         <>
                             <div className="flex items-center justify-center">
-                                {
-                                    (diffResult.left.length > 0 || diffResult.right.length > 0) &&
-                                    (
-                                        <>
-                                            {
-                                                diffResult.differenceCount > 0 ? (<>
-                                                    <Alert className="w-fit" variant="destructive" >
-                                                        <TriangleAlert className="h-4 w-4"></TriangleAlert>
-                                                        <AlertTitle>{diffResult.differenceCount} {t(`${textCompare}.page.diff`)}</AlertTitle>
-                                                    </Alert>
-                                                </>) : (<>
-                                                    <Alert className="w-fit" variant="success" >
-                                                        <CheckCircle className="h-4 w-4"></CheckCircle>
-                                                        <AlertTitle>{t(`${textCompare}.page.identical`)}</AlertTitle>
-                                                    </Alert>
-                                                </>)
-                                            }
-                                        </>
-                                    )
-                                }
+                                <>
+                                    {
+                                        diffResult.differenceCount > 0 ? (<>
+                                            <Alert className="w-fit" variant="destructive" >
+                                                <TriangleAlert className="h-4 w-4"></TriangleAlert>
+                                                <AlertTitle>{diffResult.differenceCount} {t(`${textCompare}.page.diff`)}</AlertTitle>
+                                            </Alert>
+                                        </>) : (<>
+                                            <Alert className="w-fit" variant="success" >
+                                                <CheckCircle className="h-4 w-4"></CheckCircle>
+                                                <AlertTitle>{t(`${textCompare}.page.identical`)}</AlertTitle>
+                                            </Alert>
+                                        </>)
+                                    }
+                                </>
                             </div>
                             <div className="flex justify-end">
                                 {(!realTimeView && showDiffViewer) &&

@@ -250,7 +250,13 @@ export const toolsCards = [
         title: `${timer}.label`,
         description: `${timer}.description`,
         isActive: true,
-        link: "/timer",
+        link: `${timerPath}`,
+    },
+    {
+        title: `${textCompare}.label`,
+        description: `${textCompare}.description`,
+        isActive: true,
+        link: `${textComparePath}`,
     },
     {
         title: `${textToHandwriting}.label`,
