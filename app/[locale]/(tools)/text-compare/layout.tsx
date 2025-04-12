@@ -8,7 +8,7 @@ export default function RootLayout({
 }>) {
     return (
         <>
-            <div className="container mx-auto p-4 md:p-8">
+            <div className="mx-auto p-4 md:p-8">
                 <Card className="overflow-hidden backdrop-blur-sm">
                     <CardContent>
                         {children}

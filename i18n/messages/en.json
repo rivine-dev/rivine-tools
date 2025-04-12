@@ -20,7 +20,9 @@
     "about": "About",
     "home": "Home",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "upload": "Upload",
+    "clear": "Clear"
   },
   "tools" : {
     "qrCodeGenerator": {
@@ -202,27 +204,21 @@
       "page": {
         "description": "Compare and analyze text differences",
         "compareText": "Compare Texts",
-        "identical": {
-          "label": "Identical",
-          "message": "The texts are identical!"
+        "select": {
+          "char": "Character by Character",
+          "word": "Word by Word",
+          "line": "Line by Line"
         },
-        "differences": {
-          "label": "Differences Found",
-          "message": "Differences detected between the texts."
-        },
-        "similarities": {
-          "label": "Similarities Found",
-          "message": "Some similarities detected."
-        },
-        "textLength": "Text length",
-        "form": {
-          "caseSensitive": "Case Sensitive Comparison",
-          "ignoreWhitespace": "Ignore Whitespace",
-          "highlightDifferences": "Highlight Differences",
-          "showLineNumbers": "Show Line Numbers"
-        }
-      },
-      "autoComparisonMessage": "Your texts will be compared automatically"
+        "identical": "The two texts are identical",
+        "diff": "differences found",
+        "textPlaceholder": "Enter or paste text here...",
+        "mergeL": "Merge to Left",
+        "mergeR": "Merge to Right",
+        "compare": "Compare",
+        "left": "Left Text",
+        "right": "Right Text",
+        "realTime": "Real-time view"
+      }
     }
   }
 }

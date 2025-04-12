@@ -20,7 +20,9 @@
     "about": "Acerca de",
     "home": "Página Principal",
     "cancel": "Cancelar",
-    "save": "Guardar"
+    "save": "Guardar",
+    "upload": "Subir",
+    "clear": "Limpiar"
   },
   "tools": {
     "qrCodeGenerator": {
@@ -173,6 +175,49 @@
         "4": "Convertidor de Texto",
         "5": "Manuscrito en Línea",
         "6": "Manuscrito Personalizado"
+      }
+    },
+    "text": {
+      "title": "Suite de Texto",
+      "label": "Texto",
+      "navDescription": "Accede a una suite completa de herramientas de texto para todas tus necesidades de procesamiento de texto.",
+      "subLabel": "Suite de Texto Completa",
+      "subNavDescription": "Explora una variedad de herramientas para gestionar, comparar y analizar texto.",
+      "description": "Nuestra Suite de Herramientas de Texto ofrece una amplia gama de utilidades para manejar tareas de procesamiento de texto de manera eficiente. Desde la comparación hasta el análisis, personaliza tu experiencia para satisfacer tus requisitos específicos."
+    },
+    "textCompare": {
+      "title": "Comparación de Texto Gratis",
+      "label": "Comparar Texto",
+      "navDescription": "Compara dos textos para identificar diferencias y similitudes.",
+      "subLabel": "Suite de Comparación de Texto",
+      "subNavDescription": "Compara y analiza diferencias de texto sin esfuerzo.",
+      "description": "Utiliza nuestra herramienta gratuita de comparación de texto en línea para identificar diferencias entre dos textos. Personaliza la configuración para resaltar cambios y similitudes.",
+      "keywords": {
+        "0": "Comparar Texto",
+        "1": "Comparar Textos",
+        "2": "Diferencias de Texto",
+        "3": "Similitudes de Texto",
+        "4": "Comparación de Texto en Línea",
+        "5": "Análisis de Texto",
+        "6": "Comparar Documentos"
+      },
+      "page": {
+        "description": "Compara y analiza diferencias de texto",
+        "compareText": "Comparar Textos",
+        "select": {
+          "char": "Carácter por Carácter",
+          "word": "Palabra por Palabra",
+          "line": "Línea por Línea"
+        },
+        "identical": "Los dos textos son idénticos",
+        "diff": "diferencias encontradas",
+        "textPlaceholder": "Introduce o pega texto aquí...",
+        "mergeL": "Unir a la Izquierda",
+        "mergeR": "Unir a la Derecha",
+        "compare": "Comparar",
+        "left": "Texto Izquierdo",
+        "right": "Texto Derecho",
+        "realTime": "Vista en tiempo real"
       }
     }
   }
