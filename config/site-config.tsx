@@ -174,7 +174,7 @@ export const toolsNavItems: ToolNavItem[] = [
 
 export const navButtons = [
     // { href: '', icon: "calendar-check", target: "_blank", tooltip: "Schedule a call"  },
-    { href: 'https://github.com/rivine-dev/rivine-tools', icon: "github", target: "_blank", tooltip: "Github"  },
+    // { href: 'https://github.com/rivine-dev/rivine-tools', icon: "github", target: "_blank", tooltip: "Github"  },
     // { href: user.linkedIn, icon: "linkedin", target: "_blank" },
     //     tooltip: "linkedIn"}
 ]
@@ -193,13 +193,13 @@ export const navLinks = [
 }[];
 
 export const footerMenuItems = [
-    {
-        title: "Site",
-        links: [
-            { label: "Home", tLabel: `${general}.home`, href: "/" },
-            ...navLinks
-        ],
-    },
+    // {
+    //     title: "Site",
+    //     links: [
+    //         { label: "Home", tLabel: `${general}.home`, href: "/" },
+    //         ...navLinks
+    //     ],
+    // },
     // {
     //     title: "Support me",
     //     links: [

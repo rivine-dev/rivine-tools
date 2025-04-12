@@ -8,10 +8,12 @@ import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Upload, Check, ChevronRight, ChevronLeft } from "lucide-react"
+import {Upload, Check, ChevronRight, ChevronLeft, CheckCircle, TriangleAlert} from "lucide-react"
 import * as diff from "diff"
-import {passwordGenerator, textCompare} from "@/config/i18n-constants";
+import {general, passwordGenerator, textCompare} from "@/config/i18n-constants";
 import {useTranslations} from "use-intl";
+import {CopyButton} from "@/components/ui/copy-button";
+import {Alert, AlertTitle} from "@/components/ui/alert";
 
 type DiffLine = {
     type: "added" | "removed" | "unchanged"
@@ -29,14 +31,16 @@ type DiffLine = {
 type DiffResult = {
     left: DiffLine[]
     right: DiffLine[]
+    differenceCount: number;
 }
 
 export function TextDiffViewer() {
     const [leftText, setLeftText] = useState("")
     const [rightText, setRightText] = useState("")
-    const [diffResult, setDiffResult] = useState<DiffResult>({ left: [], right: [] })
-    const [realTimeView, setRealTimeView] = useState(false)
-    const [diffMethod, setDiffMethod] = useState("lines")
+    const [diffResult, setDiffResult] = useState<DiffResult>({ left: [], right: [], differenceCount: 0 })
+    const [realTimeView, setRealTimeView] = useState(true)
+    const [showDiffViewer, setShowDiffViewer] = useState(false)
+    const [diffMethod, setDiffMethod] = useState("words")
     const [selectedLines, setSelectedLines] = useState<{ left: number[]; right: number[] }>({ left: [], right: [] })
     const t = useTranslations()
 
@@ -45,109 +49,68 @@ export function TextDiffViewer() {
 
     // Calculate diff when text changes
     useEffect(() => {
-        if (realTimeView || leftText === "" || rightText === "") {
+        if (realTimeView) {
             calculateDiff()
         }
     }, [leftText, rightText, diffMethod, realTimeView])
+
+    const clearDiffView = () => {
+        setShowDiffViewer(false);
+        setDiffResult({left: [], right: [], differenceCount: 0})
+    }
 
     const calculateDiff = () => {
         const leftLines = leftText.split("\n")
         const rightLines = rightText.split("\n")
 
-        let result: DiffResult = { left: [], right: [] }
+        let result: DiffResult = { left: [], right: [], differenceCount: 0 }
 
         if (diffMethod === "lines") {
-            // Line by line diff
             const changes = diff.diffLines(leftText, rightText)
             result = processLineDiff(changes, leftLines, rightLines)
         } else if (diffMethod === "words") {
-            // Word by word diff
             result = processWordDiff(leftLines, rightLines)
         } else if (diffMethod === "chars") {
-            // Character by character diff
             result = processCharDiff(leftLines, rightLines)
         }
 
         setDiffResult(result)
+        setShowDiffViewer(true)
     }
+
 
     const processLineDiff = (changes: diff.Change[], leftLines: string[], rightLines: string[]): DiffResult => {
         const left: DiffLine[] = []
         const right: DiffLine[] = []
+        let differenceCount = 0
 
         let leftLineCounter = 1
         let rightLineCounter = 1
 
-        // This is a simplified approach - a real implementation would need more sophisticated line matching
         leftLines.forEach((line, index) => {
             if (index < rightLines.length) {
-                // Lines exist on both sides
                 if (line === rightLines[index]) {
-                    // Unchanged line
-                    left.push({
-                        type: "unchanged",
-                        content: line,
-                        lineNumber: leftLineCounter,
-                        otherLineNumber: rightLineCounter,
-                        selected: false,
-                    })
-
-                    right.push({
-                        type: "unchanged",
-                        content: line,
-                        lineNumber: rightLineCounter,
-                        otherLineNumber: leftLineCounter,
-                        selected: false,
-                    })
+                    left.push({ type: "unchanged", content: line, lineNumber: leftLineCounter, otherLineNumber: rightLineCounter, selected: false })
+                    right.push({ type: "unchanged", content: line, lineNumber: rightLineCounter, otherLineNumber: leftLineCounter, selected: false })
                 } else {
-                    // Changed line
-                    left.push({
-                        type: "removed",
-                        content: line,
-                        lineNumber: leftLineCounter,
-                        otherLineNumber: rightLineCounter,
-                        selected: false,
-                    })
-
-                    right.push({
-                        type: "added",
-                        content: rightLines[index],
-                        lineNumber: rightLineCounter,
-                        otherLineNumber: leftLineCounter,
-                        selected: false,
-                    })
+                    differenceCount++
+                    left.push({ type: "removed", content: line, lineNumber: leftLineCounter, otherLineNumber: rightLineCounter, selected: false })
+                    right.push({ type: "added", content: rightLines[index], lineNumber: rightLineCounter, otherLineNumber: leftLineCounter, selected: false })
                 }
-
                 leftLineCounter++
                 rightLineCounter++
             } else {
-                // Line only exists on left side
-                left.push({
-                    type: "removed",
-                    content: line,
-                    lineNumber: leftLineCounter,
-                    otherLineNumber: null,
-                    selected: false,
-                })
-                leftLineCounter++
+                differenceCount++
+                left.push({ type: "removed", content: line, lineNumber: leftLineCounter++, otherLineNumber: null, selected: false })
             }
         })
 
-        // Add any remaining right lines
-        if (rightLines.length > leftLines.length) {
-            for (let i = leftLines.length; i < rightLines.length; i++) {
-                right.push({
-                    type: "added",
-                    content: rightLines[i],
-                    lineNumber: rightLineCounter,
-                    otherLineNumber: null,
-                    selected: false,
-                })
-                rightLineCounter++
-            }
+        for (let i = leftLines.length; i < rightLines.length; i++) {
+            differenceCount++
+            right.push({ type: "added", content: rightLines[i], lineNumber: rightLineCounter++, otherLineNumber: null, selected: false })
         }
 
-        return { left, right }
+        return { left, right, differenceCount }
     }
 
     const processWordDiff = (leftLines: string[], rightLines: string[]): DiffResult => {
@@ -156,8 +119,8 @@ export function TextDiffViewer() {
 
         let leftLineCounter = 1
         let rightLineCounter = 1
+        let differenceCount = 0
 
-        // Process each line
         const maxLines = Math.max(leftLines.length, rightLines.length)
 
         for (let i = 0; i < maxLines; i++) {
@@ -165,7 +128,6 @@ export function TextDiffViewer() {
             const rightLine = i < rightLines.length ? rightLines[i] : ""
 
             if (leftLine === rightLine) {
-                // Unchanged line
                 if (leftLine !== "") {
                     left.push({
                         type: "unchanged",
@@ -174,9 +136,6 @@ export function TextDiffViewer() {
                         otherLineNumber: rightLineCounter,
                         selected: false,
                     })
-                }
-
-                if (rightLine !== "") {
                     right.push({
                         type: "unchanged",
                         content: rightLine,
@@ -186,56 +145,57 @@ export function TextDiffViewer() {
                     })
                 }
             } else {
-                // Changed line - do word-level diff
+                const wordDiff = diff.diffWords(leftLine, rightLine)
+
+                const leftParts: { text: string; highlighted: boolean }[] = []
+                const rightParts: { text: string; highlighted: boolean }[] = []
+
+                wordDiff.forEach((part) => {
+                    if (!part.added) {
+                        leftParts.push({
+                            text: part.value,
+                            highlighted: part.removed || false,
+                        })
+                    }
+
+                    if (!part.removed) {
+                        rightParts.push({
+                            text: part.value,
+                            highlighted: part.added || false,
+                        })
+                    }
+
+                    if (part.added || part.removed) {
+                        const words = part.value.trim().split(/\s+/).filter(Boolean)
+                        differenceCount += words.length
+                    }
+                })
+
                 if (leftLine !== "") {
-                    const wordDiff = diff.diffWords(leftLine, rightLine)
-                    const parts: { text: string; highlighted: boolean }[] = []
-
-                    wordDiff.forEach((part) => {
-                        if (!part.added) {
-                            parts.push({
-                                text: part.value,
-                                highlighted: part.removed,
-                            })
-                        }
-                    })
-
                     left.push({
                         type: "removed",
                         content: leftLine,
                         lineNumber: leftLineCounter++,
                         otherLineNumber: rightLine !== "" ? rightLineCounter : null,
                         selected: false,
-                        parts: parts,
+                        parts: leftParts,
                     })
                 }
 
                 if (rightLine !== "") {
-                    const wordDiff = diff.diffWords(leftLine, rightLine)
-                    const parts: { text: string; highlighted: boolean }[] = []
-
-                    wordDiff.forEach((part) => {
-                        if (!part.removed) {
-                            parts.push({
-                                text: part.value,
-                                highlighted: part.added,
-                            })
-                        }
-                    })
-
                     right.push({
                         type: "added",
                         content: rightLine,
                         lineNumber: rightLineCounter++,
                         otherLineNumber: leftLine !== "" ? leftLineCounter - 1 : null,
                         selected: false,
-                        parts: parts,
+                        parts: rightParts,
                     })
                 }
             }
         }
 
-        return { left, right }
+        return { left, right, differenceCount }
     }
 
     const processCharDiff = (leftLines: string[], rightLines: string[]): DiffResult => {
@@ -244,8 +204,8 @@ export function TextDiffViewer() {
 
         let leftLineCounter = 1
         let rightLineCounter = 1
+        let differenceCount = 0
 
-        // Process each line
         const maxLines = Math.max(leftLines.length, rightLines.length)
 
         for (let i = 0; i < maxLines; i++) {
@@ -253,7 +213,6 @@ export function TextDiffViewer() {
             const rightLine = i < rightLines.length ? rightLines[i] : ""
 
             if (leftLine === rightLine) {
-                // Unchanged line
                 if (leftLine !== "") {
                     left.push({
                         type: "unchanged",
@@ -262,9 +221,6 @@ export function TextDiffViewer() {
                         otherLineNumber: rightLineCounter,
                         selected: false,
                     })
-                }
-
-                if (rightLine !== "") {
                     right.push({
                         type: "unchanged",
                         content: rightLine,
@@ -274,56 +230,56 @@ export function TextDiffViewer() {
                     })
                 }
             } else {
-                // Changed line - do character-level diff
+                const charDiff = diff.diffChars(leftLine, rightLine)
+
+                const leftParts: { text: string; highlighted: boolean }[] = []
+                const rightParts: { text: string; highlighted: boolean }[] = []
+
+                charDiff.forEach((part) => {
+                    if (!part.added) {
+                        leftParts.push({
+                            text: part.value,
+                            highlighted: part.removed || false,
+                        })
+                    }
+
+                    if (!part.removed) {
+                        rightParts.push({
+                            text: part.value,
+                            highlighted: part.added || false,
+                        })
+                    }
+
+                    if (part.added || part.removed) {
+                        differenceCount += part.value.length
+                    }
+                })
+
                 if (leftLine !== "") {
-                    const charDiff = diff.diffChars(leftLine, rightLine)
-                    const parts: { text: string; highlighted: boolean }[] = []
-
-                    charDiff.forEach((part) => {
-                        if (!part.added) {
-                            parts.push({
-                                text: part.value,
-                                highlighted: part.removed,
-                            })
-                        }
-                    })
-
                     left.push({
                         type: "removed",
                         content: leftLine,
                         lineNumber: leftLineCounter++,
                         otherLineNumber: rightLine !== "" ? rightLineCounter : null,
                         selected: false,
-                        parts: parts,
+                        parts: leftParts,
                     })
                 }
 
                 if (rightLine !== "") {
-                    const charDiff = diff.diffChars(leftLine, rightLine)
-                    const parts: { text: string; highlighted: boolean }[] = []
-
-                    charDiff.forEach((part) => {
-                        if (!part.removed) {
-                            parts.push({
-                                text: part.value,
-                                highlighted: part.added,
-                            })
-                        }
-                    })
-
                     right.push({
                         type: "added",
                         content: rightLine,
                         lineNumber: rightLineCounter++,
                         otherLineNumber: leftLine !== "" ? leftLineCounter - 1 : null,
                         selected: false,
-                        parts: parts,
+                        parts: rightParts,
                     })
                 }
             }
         }
 
-        return { left, right }
+        return { left, right, differenceCount }
     }
 
     const handleFileUpload = (side: "left" | "right", e: React.ChangeEvent<HTMLInputElement>) => {
@@ -398,11 +354,6 @@ export function TextDiffViewer() {
 
         // Clear selections
         setSelectedLines({ left: [], right: [] })
-
-        // Force recalculate diff
-        setTimeout(() => {
-            calculateDiff()
-        }, 0)
     }
 
     const mergeToLeft = () => {
@@ -446,10 +397,6 @@ export function TextDiffViewer() {
         // Clear selections
         setSelectedLines({ left: [], right: [] })
 
-        // Force recalculate diff
-        setTimeout(() => {
-            calculateDiff()
-        }, 0)
     }
 
     // Render a line with word or character level highlighting
@@ -474,34 +421,33 @@ export function TextDiffViewer() {
 
     return (
         <div className="flex flex-col gap-6">
-            <h2 className="text-xl font-bold text-center">{t(`${textCompare}.label`)}</h2>
+            <h2 className="text-xl font-bold text-center">{t(`${textCompare}.page.compareText`)}</h2>
+            <p className="text-center text-sm text-muted-foreground">{t(`${textCompare}.page.description`)}</p>
             <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
                 <div className="flex items-center gap-4">
                     <Select
                         value={diffMethod}
                         onValueChange={(value) => {
                             setDiffMethod(value)
-                            // Force recalculate diff when method changes
-                            setTimeout(calculateDiff, 0)
                         }}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Diff Method" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="chars">Character by Character</SelectItem>
-                            <SelectItem value="words">Word by Word</SelectItem>
-                            <SelectItem value="lines">Line by Line</SelectItem>
+                            <SelectItem value="chars">{t(`${textCompare}.page.select.char`)}</SelectItem>
+                            <SelectItem value="words">{t(`${textCompare}.page.select.word`)}</SelectItem>
+                            <SelectItem value="lines">{t(`${textCompare}.page.select.line`)}</SelectItem>
                         </SelectContent>
                     </Select>
 
                     <div className="flex items-center space-x-2">
                         <Switch id="real-time" checked={realTimeView} onCheckedChange={setRealTimeView} />
-                        <Label htmlFor="real-time">Real-time View</Label>
+                        <Label htmlFor="real-time">{t(`${textCompare}.page.realTime`)}</Label>
                     </div>
                 </div>
 
-                {!realTimeView && <Button onClick={calculateDiff}>Compare</Button>}
+                {!realTimeView && <Button onClick={calculateDiff}>{t(`${textCompare}.page.compare`)}</Button>}
             </div>
 
             {/* Editors */}
@@ -509,7 +455,7 @@ export function TextDiffViewer() {
                 {/* Left Editor */}
                 <div className="flex flex-col gap-2">
                     <div className="flex justify-between items-center">
-                        <h3 className="text-lg font-medium">Left Text</h3>
+                        <h3 className="text-lg font-medium">{t(`${textCompare}.page.left`)}</h3>
                         <div>
                             <input
                                 type="file"
@@ -519,7 +465,7 @@ export function TextDiffViewer() {
                             />
                             <Button variant="outline" size="sm" onClick={() => leftFileInputRef.current?.click()}>
                                 <Upload className="h-4 w-4 mr-2" />
-                                Upload
+                                {t(`${general}.upload`)}
                             </Button>
                         </div>
                     </div>
@@ -527,14 +473,14 @@ export function TextDiffViewer() {
                         value={leftText}
                         onChange={(e) => setLeftText(e.target.value)}
                         className="font-mono h-[200px]"
-                        placeholder="Enter or paste text here..."
+                        placeholder={t(`${textCompare}.page.textPlaceholder`)}
                     />
                 </div>
 
                 {/* Right Editor */}
                 <div className="flex flex-col gap-2">
                     <div className="flex justify-between items-center">
-                        <h3 className="text-lg font-medium">Right Text</h3>
+                        <h3 className="text-lg font-medium">{t(`${textCompare}.page.right`)}</h3>
                         <div>
                             <input
                                 type="file"
@@ -544,7 +490,7 @@ export function TextDiffViewer() {
                             />
                             <Button variant="outline" size="sm" onClick={() => rightFileInputRef.current?.click()}>
                                 <Upload className="h-4 w-4 mr-2" />
-                                Upload
+                                {t(`${general}.upload`)}
                             </Button>
                         </div>
                     </div>
@@ -552,82 +498,121 @@ export function TextDiffViewer() {
                         value={rightText}
                         onChange={(e) => setRightText(e.target.value)}
                         className="font-mono h-[200px]"
-                        placeholder="Enter or paste text here..."
+                        placeholder={t(`${textCompare}.page.textPlaceholder`)}
                     />
                 </div>
             </div>
 
             {/* Diff View */}
             <div className="space-y-4 mt-4">
-                <div className="flex justify-center gap-4 mb-4">
-                    <Button variant="outline" onClick={mergeToLeft} disabled={selectedLines.right.length === 0}>
-                        <ChevronLeft className="h-4 w-4 mr-2" />
-                        Merge to Left
-                    </Button>
 
-                    <Button variant="outline" onClick={mergeToRight} disabled={selectedLines.left.length === 0}>
-                        Merge to Right
-                        <ChevronRight className="h-4 w-4 ml-2" />
-                    </Button>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                    {/* Left Diff View */}
-                    <div className="border rounded-md overflow-hidden">
-                        <div className="bg-muted p-2 font-medium">Left</div>
-                        <div className="p-2 font-mono break-all">
-                            {diffResult.left.map((line, index) => (
-                                <div
-                                    key={`left-${index}`}
-                                    className={`flex cursor-pointer ${
-                                        diffMethod === "lines" && line.type === "removed"
-                                            ? "bg-red-100 dark:bg-red-400"
-                                            : diffMethod !== "lines" && line.type === "removed"
-                                                ? "bg-red-50 dark:bg-red-300"
-                                                : ""
-                                    } ${selectedLines.left.includes(line.lineNumber) ? "bg-blue-200 dark:bg-blue-400" : ""}`}
-                                    onClick={() => toggleLineSelection("left", line.lineNumber)}
-                                >
-                                    <div className="w-10 text-right pr-2 text-gray-500 select-none border-r">{line.lineNumber}</div>
-                                    <div className="pl-2 flex-1">
-                                        {selectedLines.left.includes(line.lineNumber) && (
-                                            <Check className="inline h-4 w-4 mr-1 text-blue-600" />
-                                        )}
-                                        {diffMethod === "lines" || !line.parts ? line.content : renderDetailedLine(line, "left")}
+                {
+                    showDiffViewer && (
+                        <>
+                            <div className="flex items-center justify-center">
+                                {
+                                    (diffResult.left.length > 0 || diffResult.right.length > 0) &&
+                                    (
+                                        <>
+                                            {
+                                                diffResult.differenceCount > 0 ? (<>
+                                                    <Alert className="w-fit" variant="destructive" >
+                                                        <TriangleAlert className="h-4 w-4"></TriangleAlert>
+                                                        <AlertTitle>{diffResult.differenceCount} {t(`${textCompare}.page.diff`)}</AlertTitle>
+                                                    </Alert>
+                                                </>) : (<>
+                                                    <Alert className="w-fit" variant="success" >
+                                                        <CheckCircle className="h-4 w-4"></CheckCircle>
+                                                        <AlertTitle>{t(`${textCompare}.page.identical`)}</AlertTitle>
+                                                    </Alert>
+                                                </>)
+                                            }
+                                        </>
+                                    )
+                                }
+                            </div>
+                            <div className="flex justify-end">
+                                {(!realTimeView && showDiffViewer) &&
+                                    <Button variant="destructive" onClick={clearDiffView}>{t(`${general}.clear`)}</Button>
+                                }
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                {/* Left Diff View */}
+                                <div className="border rounded-md overflow-hidden">
+                                    <div className="flex justify-between items-center bg-muted p-2 font-medium">{t(`${textCompare}.page.left`)}
+                                        <div className="space-x-2">
+                                            <CopyButton value={leftText}></CopyButton>
+                                            <Button variant="outline" onClick={mergeToRight} disabled={selectedLines.left.length === 0}>
+                                                {t(`${textCompare}.page.mergeR`)}
+                                                <ChevronRight className="h-4 w-4 ml-2" />
+                                            </Button>
+                                        </div>
+                                    </div>
+                                    <div className="p-2 font-mono break-all">
+                                        {diffResult.left.map((line, index) => (
+                                            <div
+                                                key={`left-${index}`}
+                                                className={`flex cursor-pointer ${
+                                                    diffMethod === "lines" && line.type === "removed"
+                                                        ? "bg-red-100 dark:bg-red-400"
+                                                        : diffMethod !== "lines" && line.type === "removed"
+                                                            ? "bg-red-50 dark:bg-red-300"
+                                                            : ""
+                                                } ${selectedLines.left.includes(line.lineNumber) ? "bg-blue-200 dark:bg-blue-400" : ""}`}
+                                                onClick={() => toggleLineSelection("left", line.lineNumber)}
+                                            >
+                                                <div className="w-10 text-right pr-2 text-gray-500 select-none border-r">{line.lineNumber}</div>
+                                                <div className="pl-2 flex-1">
+                                                    {selectedLines.left.includes(line.lineNumber) && (
+                                                        <Check className="inline h-4 w-4 mr-1 text-blue-600" />
+                                                    )}
+                                                    {diffMethod === "lines" || !line.parts ? line.content : renderDetailedLine(line, "left")}
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
-                            ))}
-                        </div>
-                    </div>
 
-                    {/* Right Diff View */}
-                    <div className="border rounded-md overflow-hidden">
-                        <div className="bg-muted p-2 font-medium">Right</div>
-                        <div className="p-2 font-mono break-all">
-                            {diffResult.right.map((line, index) => (
-                                <div
-                                    key={`right-${index}`}
-                                    className={`flex cursor-pointer ${
-                                        diffMethod === "lines" && line.type === "added"
-                                            ? "bg-green-100 dark:bg-green-400"
-                                            : diffMethod !== "lines" && line.type === "added"
-                                                ? "bg-green-50 dark:bg-green-300"
-                                                : ""
-                                    } ${selectedLines.right.includes(line.lineNumber) ? "bg-blue-200 dark:bg-blue-400" : ""}`}
-                                    onClick={() => toggleLineSelection("right", line.lineNumber)}
-                                >
-                                    <div className="w-10 text-right pr-2 text-gray-500 select-none border-r">{line.lineNumber}</div>
-                                    <div className="pl-2 flex-1">
-                                        {selectedLines.right.includes(line.lineNumber) && (
-                                            <Check className="inline h-4 w-4 mr-1 text-blue-600" />
-                                        )}
-                                        {diffMethod === "lines" || !line.parts ? line.content : renderDetailedLine(line, "right")}
+                                {/* Right Diff View */}
+                                <div className="border rounded-md overflow-hidden">
+                                    <div className="flex items-center justify-between bg-muted p-2 font-medium">
+                                        <div className="space-x-2">
+                                            <Button variant="outline" onClick={mergeToLeft} disabled={selectedLines.right.length === 0}>
+                                                <ChevronLeft className="h-4 w-4 mr-2" />
+                                                {t(`${textCompare}.page.mergeL`)}
+                                            </Button>
+                                            <CopyButton value={rightText}></CopyButton>
+                                        </div>
+                                        {t(`${textCompare}.page.right`)}
+                                    </div>
+                                    <div className="p-2 font-mono break-all">
+                                        {diffResult.right.map((line, index) => (
+                                            <div
+                                                key={`right-${index}`}
+                                                className={`flex cursor-pointer ${
+                                                    diffMethod === "lines" && line.type === "added"
+                                                        ? "bg-green-100 dark:bg-green-400"
+                                                        : diffMethod !== "lines" && line.type === "added"
+                                                            ? "bg-green-50 dark:bg-green-300"
+                                                            : ""
+                                                } ${selectedLines.right.includes(line.lineNumber) ? "bg-blue-200 dark:bg-blue-400" : ""}`}
+                                                onClick={() => toggleLineSelection("right", line.lineNumber)}
+                                            >
+                                                <div className="w-10 text-right pr-2 text-gray-500 select-none border-r">{line.lineNumber}</div>
+                                                <div className="pl-2 flex-1">
+                                                    {selectedLines.right.includes(line.lineNumber) && (
+                                                        <Check className="inline h-4 w-4 mr-1 text-blue-600" />
+                                                    )}
+                                                    {diffMethod === "lines" || !line.parts ? line.content : renderDetailedLine(line, "right")}
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                            </div>
+                        </>
+                    )
+                }
             </div>
         </div>
     )

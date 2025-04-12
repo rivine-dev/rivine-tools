@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import {passwordGeneratorPath, qrHomePath, siteUrl} from '@/config/site-config'
+import {passwordGeneratorPath, qrHomePath, siteUrl, textComparePath, timerPath} from '@/config/site-config'
 import {supportedLanguages} from "@/i18n/config";
 
 const getAlternates = (basePath: string) => ({
@@ -36,6 +36,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
             url: `${siteUrl}${passwordGeneratorPath}`,
             lastModified: new Date(),
             alternates: getAlternates(passwordGeneratorPath),
+        },
+        {
+            url: `${siteUrl}${timerPath}`,
+            lastModified: new Date(),
+            alternates: getAlternates(timerPath),
+        },
+        {
+            url: `${siteUrl}${textComparePath}`,
+            lastModified: new Date(),
+            alternates: getAlternates(textComparePath),
         },
     ]
 }
