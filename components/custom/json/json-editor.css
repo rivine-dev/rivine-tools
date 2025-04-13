@@ -1,0 +1,125 @@
+.jse-menu {
+    background-color: var(--primary) !important; /* Tailwind green-500 */
+    color: white !important;
+    padding: 0.25rem !important; /* p-1 */
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+}
+
+.jse-title {
+    background: var(--primary) !important;
+    color: var(--foreground) !important;
+}
+
+.jse-fullscreen {
+    background: var(--primary) !important;
+    min-height: 31px;
+}
+
+.jse-fullscreen:hover {
+    background: var(--muted-foreground) !important;
+}
+
+.jse-close {
+    background: var(--primary) !important;
+    min-height: 31px;
+}
+
+.jse-close:hover {
+    background: var(--muted-foreground) !important;
+}
+
+
+.jse-button {
+    border-radius: var(--radius) !important;
+}
+
+.jse-button:hover {
+    background-color: rgba(255, 255, 255, 0.68) !important;
+    color: black !important;
+}
+
+.jse-primary {
+    background: var(--primary) !important;
+    color: var(--foreground) !important;
+    border-radius: var(--radius) !important;
+}
+
+.jse-nested-array-action {
+    background: var(--primary) !important;
+    color: var(--foreground) !important;
+    border-radius: var(--radius) !important;
+}
+
+.jse-group-button {
+    height: 1.5rem !important; /* h-6 */
+    font-size: 0.75rem !important; /* text-xs */
+    border-radius: 0.5rem !important; /* rounded-sm */
+    padding: 0 0.5rem !important; /* px-2 */
+    color: white !important;
+    background-color: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.jse-group-button:hover {
+    background-color: rgba(255, 255, 255, 0.68) !important;
+}
+
+.jse-group-button.jse-selected {
+    background-color: white !important;
+    color: black !important;
+}
+
+.jse-navigation-bar-dropdown {
+    background: var(--muted) !important;
+}
+
+.jse-contents {
+    background: var(--muted) !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 0 !important;
+}
+
+.jse-navigation-bar {
+    background: var(--primary-foreground) !important;
+    color: var(--foreground) !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+}
+
+.jse-contextmenu {
+    background: var(--primary-foreground) !important;
+    color: var(--foreground) !important;
+}
+
+.jse-key {
+    color: var(--foreground) !important;
+}
+
+.jse-value {
+    color: var(--primary) !important;
+}
+
+.cm-line {
+    color: var(--foreground);
+}
+
+.jse-bracket {
+    color: var(--foreground) !important;
+}
+
+.jse-expand {
+    color: var(--foreground) !important;
+}
+
+.cm-line .ͼo {
+    color: var(--foreground);
+}
+
+.cm-line .ͼr {
+    color: var(--primary);
+}
