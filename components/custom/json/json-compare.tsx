@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import React, {useRef} from "react"
 
 import { useState, useEffect } from "react"
 import dynamic from "next/dynamic"
@@ -14,15 +14,12 @@ import {
     FileUp,
     Maximize,
     ChevronDown,
-    FileText,
-    AlignJustify,
-    AlignLeft,
-    Search,
-    MoreVertical,
-    Undo,
-    Redo,
-    ArrowLeftRight,
+    FileText, Upload,
 } from "lucide-react"
+import {Checkbox} from "@/components/ui/checkbox";
+import {Label} from "@/components/ui/label";
+import {general, jsonEditor, textCompare} from "@/config/i18n-constants";
+import {useTranslations} from "use-intl";
 
 // Dynamically import JSONEditor to avoid SSR issues
 const JSONEditor = dynamic(() => import("./json-editor"), {
@@ -36,42 +33,22 @@ export default function JsonCompare() {
     const [compareMode, setCompareMode] = useState(false)
     // Update the state definition for differences to include the new structure
     const [differences, setDifferences] = useState<{ path: string; doc1Value: any; doc2Value: any }[]>([])
-    const [viewMode, setViewMode] = useState<"text" | "tree" | "table">("tree")
+    const [viewMode, setViewMode] = useState<"text" | "tree" | "table">("text")
+    const t = useTranslations()
+
+    const leftFileInputRef = useRef<HTMLInputElement>(null)
+    const rightFileInputRef = useRef<HTMLInputElement>(null)
 
     // JSON content for each document
     const [document1, setDocument1] = useState<any>({
-        priority: 0,
-        route: {
-            routeId: "GET:/dev/test/headers",
-            path: "/dev/test/headers",
-            operation: "get-headers",
-            appId: "67dba1c1b7c5938da1aa1f6",
-            displayName: "get-headers",
-            method: "GET",
-            pathType: "combined",
-            apiId: "67f3ac0741fa7e50c2fd1a4",
-            fullPath: "/dev/test/headers",
-            regexPath: "^/dev/test/headers$",
-            parameters: [],
-        },
     })
 
     const [document2, setDocument2] = useState<any>({
-        priority: 1,
-        route: {
-            routeId: "GET:/dev/test/headers",
-            path: "/dev/test/headers",
-            operation: "get-headers",
-            appId: "67dba1c1b7c5938da1aa1f6",
-            displayName: "get-headers",
-            method: "GET",
-            pathType: "combined",
-            apiId: "67f3ac0741fa7e50c2fd1a4",
-            fullPath: "/dev/test/headers",
-            regexPath: "^/dev/test/headers$",
-            parameters: [],
-        },
     })
+
+    const copyToLeft = () => {
+        setDocument1(document2)
+    }
 
     // Function to handle JSON changes
     const handleChange = (doc: string, value: any) => {
@@ -213,33 +190,33 @@ export default function JsonCompare() {
     }
 
     // Function to handle file upload
-    const handleFileUpload = (doc: string, event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0]
-        if (!file) return
-
-        const reader = new FileReader()
-        reader.onload = (e) => {
-            try {
-                const content = JSON.parse(e.target?.result as string)
-                if (doc === "document1") {
-                    setDocument1(content)
-                } else {
-                    setDocument2(content)
-                }
-                // toast({
-                //     title: "File loaded",
-                //     description: `${file.name} has been loaded successfully`,
-                // })
-            } catch (error) {
-                // toast({
-                //     title: "Error parsing JSON",
-                //     description: "The file does not contain valid JSON",
-                //     variant: "destructive",
-                // })
-            }
-        }
-        reader.readAsText(file)
-    }
+    // const handleFileUpload = (doc: string, event: React.ChangeEvent<HTMLInputElement>) => {
+    //     const file = event.target.files?.[0]
+    //     if (!file) return
+    //
+    //     const reader = new FileReader()
+    //     reader.onload = (e) => {
+    //         try {
+    //             const content = JSON.parse(e.target?.result as string)
+    //             if (doc === "document1") {
+    //                 setDocument1(content)
+    //             } else {
+    //                 setDocument2(content)
+    //             }
+    //             // toast({
+    //             //     title: "File loaded",
+    //             //     description: `${file.name} has been loaded successfully`,
+    //             // })
+    //         } catch (error) {
+    //             // toast({
+    //             //     title: "Error parsing JSON",
+    //             //     description: "The file does not contain valid JSON",
+    //             //     variant: "destructive",
+    //             // })
+    //         }
+    //     }
+    //     reader.readAsText(file)
+    // }
 
     // Function to toggle fullscreen
     const toggleFullscreen = () => {
@@ -261,6 +238,25 @@ export default function JsonCompare() {
         }
     }
 
+    const handleFileUpload = (side: "left" | "right", e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+
+        const reader = new FileReader()
+        reader.onload = (event) => {
+            let content = event.target?.result as string
+            try {
+                content = JSON.parse(event.target?.result as string)
+            } catch {}
+            if (side === "left") {
+                setDocument1(content)
+            } else {
+                setDocument2(content)
+            }
+        }
+        reader.readAsText(file)
+    }
+
     // Add a useEffect to trigger comparison when compare mode is enabled
     // Add this after the toggleCompareMode function
     useEffect(() => {
@@ -270,60 +266,72 @@ export default function JsonCompare() {
     }, [compareMode, document1, document2])
 
     return (
-        <main className="container mx-auto p-4">
+        <main className="mx-auto p-4">
+            <h2 className="text-xl font-bold text-center">{t(`${jsonEditor}.label`)}</h2>
+            <p className="text-center text-sm text-muted-foreground mb-4">{t(`${jsonEditor}.navDescription`)}</p>
             <div className="flex flex-col lg:flex-row gap-4">
                 <div className={`flex-1 border rounded-lg overflow-hidden ${compareMode ? "block" : "block"}`}>
                     <div className="bg-[var(--ring)] text-white p-2 flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                            <span className="font-medium">New document 1</span>
-                            <Button variant="ghost" size="icon" className="h-6 w-6 text-white">
-                                <FileText className="h-4 w-4" />
-                            </Button>
+                        <div className="flex items-center gap-2 justify-between w-[100%]">
+                            <span className="font-medium">Document 1</span>
+                            <div>
+                                <input
+                                    type="file"
+                                    ref={leftFileInputRef}
+                                    onChange={(e) => handleFileUpload("left", e)}
+                                    className="hidden"
+                                />
+                                <Button variant="ghost" onClick={() => leftFileInputRef.current?.click()}>
+                                    <Upload />
+                                </Button>
+                            </div>
+
+                            {/*<Button variant="ghost" size="icon" className="h-6 w-6 text-white">*/}
+                            {/*    <FileText className="h-4 w-4" />*/}
+                            {/*</Button>*/}
                         </div>
-                        <div className="flex items-center gap-1">
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-6 w-6 text-white">
-                                            <FileUp className="h-4 w-4" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent>
-                                        <p>Open file</p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                        {/*<div className="flex items-center gap-1">*/}
+                        {/*    <TooltipProvider>*/}
+                        {/*        <Tooltip>*/}
+                        {/*            <TooltipTrigger asChild>*/}
 
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="h-6 w-6 text-white">
-                                        <Save className="h-4 w-4" />
-                                        <ChevronDown className="h-3 w-3 ml-1" />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuItem>Save</DropdownMenuItem>
-                                    <DropdownMenuItem>Save As...</DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                        {/*            </TooltipTrigger>*/}
+                        {/*            <TooltipContent>*/}
+                        {/*                <p>Open file</p>*/}
+                        {/*            </TooltipContent>*/}
+                        {/*        </Tooltip>*/}
+                        {/*    </TooltipProvider>*/}
 
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="h-6 w-6 text-white">
-                                        <Copy className="h-4 w-4" />
-                                        <ChevronDown className="h-3 w-3 ml-1" />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuItem onClick={() => copyToClipboard("document1")}>Copy JSON</DropdownMenuItem>
-                                    <DropdownMenuItem>Copy Path</DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                        {/*    <DropdownMenu>*/}
+                        {/*        <DropdownMenuTrigger asChild>*/}
+                        {/*            <Button variant="ghost" size="icon" className="h-6 w-6 text-white">*/}
+                        {/*                <Save className="h-4 w-4" />*/}
+                        {/*                <ChevronDown className="h-3 w-3 ml-1" />*/}
+                        {/*            </Button>*/}
+                        {/*        </DropdownMenuTrigger>*/}
+                        {/*        <DropdownMenuContent>*/}
+                        {/*            <DropdownMenuItem>Save</DropdownMenuItem>*/}
+                        {/*            <DropdownMenuItem>Save As...</DropdownMenuItem>*/}
+                        {/*        </DropdownMenuContent>*/}
+                        {/*    </DropdownMenu>*/}
 
-                            <Button variant="ghost" size="icon" className="h-6 w-6 text-white" onClick={toggleFullscreen}>
-                                <Maximize className="h-4 w-4" />
-                            </Button>
-                        </div>
+                        {/*    <DropdownMenu>*/}
+                        {/*        <DropdownMenuTrigger asChild>*/}
+                        {/*            <Button variant="ghost" size="icon" className="h-6 w-6 text-white">*/}
+                        {/*                <Copy className="h-4 w-4" />*/}
+                        {/*                <ChevronDown className="h-3 w-3 ml-1" />*/}
+                        {/*            </Button>*/}
+                        {/*        </DropdownMenuTrigger>*/}
+                        {/*        <DropdownMenuContent>*/}
+                        {/*            <DropdownMenuItem onClick={() => copyToClipboard("document1")}>Copy JSON</DropdownMenuItem>*/}
+                        {/*            <DropdownMenuItem>Copy Path</DropdownMenuItem>*/}
+                        {/*        </DropdownMenuContent>*/}
+                        {/*    </DropdownMenu>*/}
+
+                        {/*    <Button variant="ghost" size="icon" className="h-6 w-6 text-white" onClick={toggleFullscreen}>*/}
+                        {/*        <Maximize className="h-4 w-4" />*/}
+                        {/*    </Button>*/}
+                        {/*</div>*/}
                     </div>
 
                     <div className="h-[70vh]">
@@ -337,58 +345,80 @@ export default function JsonCompare() {
                     </div>
                 </div>
 
-                <div className={`flex-1 border rounded-lg overflow-hidden ${compareMode ? "block" : "hidden lg:block"}`}>
+                <div className="flex flex-col lg:pt-20 gap-4">
+
+                    <div className="flex items-center">
+                        <Checkbox id="terms" checked={compareMode} onClick={toggleCompareMode} className="mr-2"/>
+                        <Label htmlFor="terms">Compare</Label>
+                    </div>
+                    {compareMode && (<div className="text-center">
+                        <div className="text-sm font-medium">Differences</div>
+                        <div className="text-xs text-muted-foreground">
+                            {differences.length} difference{differences.length !== 1 ? "s" : ""}
+                        </div>
+                    </div>)}
+                </div>
+
+                <div className={"flex-1 border rounded-lg overflow-hidden"}>
                     <div className="bg-[var(--ring)] text-white p-2 flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                            <span className="font-medium">New document 2</span>
-                            <Button variant="ghost" size="icon" className="h-6 w-6 text-white">
-                                <FileText className="h-4 w-4" />
-                            </Button>
+                        <div className="flex items-center gap-2 justify-between w-[100%]">
+                            <span className="font-medium">Document 1</span>
+                            <div>
+                                <input
+                                    type="file"
+                                    ref={leftFileInputRef}
+                                    onChange={(e) => handleFileUpload("right", e)}
+                                    className="hidden"
+                                />
+                                <Button variant="ghost" onClick={() => leftFileInputRef.current?.click()}>
+                                    <Upload />
+                                </Button>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-1">
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="h-6 w-6 text-white">
-                                            <FileUp className="h-4 w-4" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent>
-                                        <p>Open file</p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
+                        {/*<div className="flex items-center gap-1">*/}
+                        {/*    <TooltipProvider>*/}
+                        {/*        <Tooltip>*/}
+                        {/*            <TooltipTrigger asChild>*/}
+                        {/*                <Button variant="ghost" size="icon" className="h-6 w-6 text-white">*/}
+                        {/*                    <FileUp className="h-4 w-4" />*/}
+                        {/*                </Button>*/}
+                        {/*            </TooltipTrigger>*/}
+                        {/*            <TooltipContent>*/}
+                        {/*                <p>Open file</p>*/}
+                        {/*            </TooltipContent>*/}
+                        {/*        </Tooltip>*/}
+                        {/*    </TooltipProvider>*/}
 
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="h-6 w-6 text-white">
-                                        <Save className="h-4 w-4" />
-                                        <ChevronDown className="h-3 w-3 ml-1" />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuItem>Save</DropdownMenuItem>
-                                    <DropdownMenuItem>Save As...</DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                        {/*    <DropdownMenu>*/}
+                        {/*        <DropdownMenuTrigger asChild>*/}
+                        {/*            <Button variant="ghost" size="icon" className="h-6 w-6 text-white">*/}
+                        {/*                <Save className="h-4 w-4" />*/}
+                        {/*                <ChevronDown className="h-3 w-3 ml-1" />*/}
+                        {/*            </Button>*/}
+                        {/*        </DropdownMenuTrigger>*/}
+                        {/*        <DropdownMenuContent>*/}
+                        {/*            <DropdownMenuItem>Save</DropdownMenuItem>*/}
+                        {/*            <DropdownMenuItem>Save As...</DropdownMenuItem>*/}
+                        {/*        </DropdownMenuContent>*/}
+                        {/*    </DropdownMenu>*/}
 
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="h-6 w-6 text-white">
-                                        <Copy className="h-4 w-4" />
-                                        <ChevronDown className="h-3 w-3 ml-1" />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuItem onClick={() => copyToClipboard("document2")}>Copy JSON</DropdownMenuItem>
-                                    <DropdownMenuItem>Copy Path</DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                        {/*    <DropdownMenu>*/}
+                        {/*        <DropdownMenuTrigger asChild>*/}
+                        {/*            <Button variant="ghost" size="icon" className="h-6 w-6 text-white">*/}
+                        {/*                <Copy className="h-4 w-4" />*/}
+                        {/*                <ChevronDown className="h-3 w-3 ml-1" />*/}
+                        {/*            </Button>*/}
+                        {/*        </DropdownMenuTrigger>*/}
+                        {/*        <DropdownMenuContent>*/}
+                        {/*            <DropdownMenuItem onClick={() => copyToClipboard("document2")}>Copy JSON</DropdownMenuItem>*/}
+                        {/*            <DropdownMenuItem>Copy Path</DropdownMenuItem>*/}
+                        {/*        </DropdownMenuContent>*/}
+                        {/*    </DropdownMenu>*/}
 
-                            <Button variant="ghost" size="icon" className="h-6 w-6 text-white" onClick={toggleFullscreen}>
-                                <Maximize className="h-4 w-4" />
-                            </Button>
-                        </div>
+                        {/*    <Button variant="ghost" size="icon" className="h-6 w-6 text-white" onClick={toggleFullscreen}>*/}
+                        {/*        <Maximize className="h-4 w-4" />*/}
+                        {/*    </Button>*/}
+                        {/*</div>*/}
                     </div>
 
                     <div className="h-[70vh]">
@@ -401,43 +431,8 @@ export default function JsonCompare() {
                         />
                     </div>
                 </div>
-
-                {compareMode && (
-                    <div className="w-16 flex flex-col items-center justify-center gap-4 p-2">
-                        <Button variant="outline" size="icon" className="rounded-full">
-                            <ArrowLeftRight className="h-4 w-4" />
-                        </Button>
-                        <div className="text-center">
-                            <div className="text-sm font-medium">Transform</div>
-                        </div>
-
-                        <Button variant="outline" size="icon" className="rounded-full">
-                            <ChevronDown className="h-4 w-4" />
-                        </Button>
-                        <div className="text-center">
-                            <div className="text-sm font-medium">Differences</div>
-                            <div className="text-xs text-muted-foreground">
-                                {differences.length} difference{differences.length !== 1 ? "s" : ""}
-                            </div>
-                        </div>
-
-                        <div className="flex items-center">
-                            <input type="checkbox" id="compare" checked={compareMode} onChange={toggleCompareMode} className="mr-2" />
-                            <label htmlFor="compare" className="text-sm">
-                                Compare
-                            </label>
-                        </div>
-                    </div>
-                )}
             </div>
 
-            {!compareMode && (
-                <div className="mt-4 flex justify-center">
-                    <Button onClick={toggleCompareMode} className="bg-green-600 hover:bg-green-700">
-                        Enable Compare Mode
-                    </Button>
-                </div>
-            )}
         </main>
     )
 }

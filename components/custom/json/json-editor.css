@@ -84,6 +84,25 @@
     border-bottom: 0 !important;
 }
 
+.cm-gutters {
+    background: var(--card) !important;
+    border-right: 0 !important;
+}
+
+.jse-status-bar {
+    background: var(--card) !important;
+    border: 0 !important;
+}
+
+.jse-modal-contents {
+    background: var(--card) !important;
+    color: var(--foreground) !important;
+}
+
+.jse-query {
+    background: var(--card) !important;
+}
+
 .jse-navigation-bar {
     background: var(--primary-foreground) !important;
     color: var(--foreground) !important;
@@ -92,6 +111,11 @@
 }
 
 .jse-contextmenu {
+    background: var(--primary-foreground) !important;
+    color: var(--foreground) !important;
+}
+
+.svelte-select {
     background: var(--primary-foreground) !important;
     color: var(--foreground) !important;
 }
