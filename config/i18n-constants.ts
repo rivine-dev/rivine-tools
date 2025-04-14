@@ -23,3 +23,7 @@ export const textToHandwriting = `${tools}.textToHandwriting`;
 export const text = `${tools}.text`;
 
 export const textCompare = `${tools}.textCompare`;
+
+export const json = `${tools}.json`;
+
+export const jsonEditor = `${tools}.jsonEditor`;

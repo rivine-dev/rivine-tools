@@ -219,6 +219,35 @@
         "right": "Texto Derecho",
         "realTime": "Vista en tiempo real"
       }
+    },
+    "json": {
+      "title": "JSON",
+      "label": "Herramientas JSON",
+      "navDescription": "Suite integral para todas tus necesidades de JSON.",
+      "subLabel": "Suite Completa de JSON",
+      "subNavDescription": "Maneja, edita y formatea datos JSON sin esfuerzo.",
+      "description": "Explora nuestra suite integral de herramientas JSON en línea gratuitas para editar, formatear, validar y analizar datos JSON. Personaliza la configuración para mejorar tu experiencia de manejo de JSON."
+    },
+    "jsonEditor": {
+      "title": "Editor JSON Gratis",
+      "label": "Editor JSON",
+      "navDescription": "Edita y formatea datos JSON con facilidad.",
+      "subLabel": "Suite de Editor JSON",
+      "subNavDescription": "Edita y formatea datos JSON sin esfuerzo.",
+      "description": "Utiliza nuestra herramienta gratuita de editor JSON en línea para editar y formatear datos JSON. Personaliza la configuración para mejorar tu experiencia de edición JSON.",
+      "keywords": {
+        "0": "Editor JSON",
+        "1": "Editar JSON",
+        "2": "Formateador JSON",
+        "3": "Embellecedor JSON",
+        "4": "Editor JSON en línea",
+        "5": "Validador JSON",
+        "6": "Analizador JSON",
+        "7": "Comprobador de sintaxis JSON",
+        "8": "Visor JSON",
+        "9": "Minificador JSON",
+        "10": "Impresión bonita JSON"
+      }
     }
   }
 }

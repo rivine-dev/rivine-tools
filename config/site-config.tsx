@@ -1,7 +1,7 @@
 import {LinkIcon, PhoneIcon, Type} from "lucide-react";
 import {
     clock,
-    general,
+    general, json, jsonEditor,
     passwordGenerator,
     qrCodeGenerator,
     qrCodePhone,
@@ -61,6 +61,8 @@ export const passwordGeneratorPath = "/password-generator";
 export const timerPath = "/timer";
 
 export const textComparePath = "/text-compare";
+
+export const jsonEditorPath = "/json-editor";
 
 export const toolsNavItems: ToolNavItem[] = [
     {
@@ -166,6 +168,28 @@ export const toolsNavItems: ToolNavItem[] = [
                 tDescription: `${textCompare}.navDescription`,
             },
         ],
+    },
+    {
+        label: "JSON",
+        tLabel: `${json}.title`,
+        description: "JSON",
+        tDescription: `${jsonEditor}.navDescription`,
+        featured: {
+            href: jsonEditorPath,
+            label: "JSON Suite",
+            tLabel: `${json}.subLabel`,
+            description: "JSON.",
+            tDescription: `${json}.subNavDescription`,
+        },
+        links: [
+            {
+                label: "JSON",
+                tLabel: `${jsonEditor}.label`,
+                href: jsonEditorPath,
+                description: "JSON.",
+                tDescription: `${jsonEditor}.navDescription`,
+            },
+        ],
     }
     // Add more tools here...
 ];
@@ -257,6 +281,12 @@ export const toolsCards = [
         description: `${textCompare}.description`,
         isActive: true,
         link: `${textComparePath}`,
+    },
+    {
+        title: `${jsonEditor}.label`,
+        description: `${jsonEditor}.description`,
+        isActive: true,
+        link: `${jsonEditorPath}`,
     },
     {
         title: `${textToHandwriting}.label`,
