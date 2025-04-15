@@ -18,11 +18,11 @@ const SiteFooter = async () => {
                                 </a>
                             </div>
                         </div>
-                        {footerMenuItems.map((section, sectionIdx) => (
+                        {footerMenuItems.map((section: any, sectionIdx: number) => (
                             <div key={sectionIdx}>
                                 <h3 className="mb-4 font-bold">{section.title}</h3>
                                 <ul className="space-y-4 text-muted-foreground">
-                                    {section.links.map((link: any, linkIdx) => (
+                                    {section.links.map((link: any, linkIdx: number) => (
                                         <li
                                             key={linkIdx}
                                             className=" hover:text-primary"

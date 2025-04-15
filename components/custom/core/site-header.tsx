@@ -19,7 +19,7 @@ export function SiteHeader() {
                 <MainNav />
                 <MobileNav />
                 <nav className="ml-auto hidden items-center gap-1 md:flex">
-                    {navButtons.map((item) => (
+                    {navButtons.map((item: any) => (
                         <IconButton key={`nvI-${item.icon}`} icon={item.icon} tooltip={item.tooltip}
                                     href={item.href} target={item.target}></IconButton>
                     ))}
