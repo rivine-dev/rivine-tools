@@ -6,6 +6,7 @@ import {ThemeProvider} from "@/components/theme/theme-provider";
 import "../globals.css";
 import {i18n} from "@/i18n/config";
 import PagesTopLoader from "@/components/providers/pages-top-loader";
+import {GoogleAnalytics} from "@next/third-parties/google";
 
 export default async function LocaleLayout({
                                                children,
@@ -40,6 +41,9 @@ export default async function LocaleLayout({
                         </div>
                     </NextIntlClientProvider>
                 </ThemeProvider>
+                {process.env.ENABLE_GOOGLE_ANALYTICS === 'true' && (
+                    <GoogleAnalytics gaId={`${process.env.GOOGLE_ANALYTICS_ID}`} />
+                )}
             </body>
         </html>
     );
