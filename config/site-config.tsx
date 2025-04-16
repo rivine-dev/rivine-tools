@@ -1,7 +1,7 @@
 import {LinkIcon, PhoneIcon, Type} from "lucide-react";
 import {
     clock,
-    general, json, jsonEditor,
+    general, image, imageMerge, json, jsonEditor,
     passwordGenerator,
     qrCodeGenerator,
     qrCodePhone,
@@ -101,6 +101,29 @@ export const toolsNavItems: ToolNavItem[] = [
                 href: `${qrHomePath}/phone`,
                 description: "Generate QR codes to dial a number.",
                 tDescription: `${qrCodePhone}.navDescription`,
+            },
+        ],
+    },
+    {
+        label: "Image",
+        tLabel: `${image}.label`,
+        description: "image.",
+        tDescription: `${image}.navDescription`,
+        featured: {
+            href: imageMergePath,
+            label: "Image Suite",
+            tLabel: `${image}.subLabel`,
+            description: "Image.",
+            tDescription: `${image}.subNavDescription`,
+            icon: "qr",
+        },
+        links: [
+            {
+                label: "Merge images",
+                tLabel: `${imageMerge}.label`,
+                href: imageMergePath,
+                description: "Image.",
+                tDescription: `${imageMerge}.navDescription`,
             },
         ],
     },
