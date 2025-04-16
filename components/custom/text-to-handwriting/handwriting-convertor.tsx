@@ -17,7 +17,7 @@ import "./handwritten-fonts.css"
 import {ColorPickerPopover} from "@/components/custom/text-to-handwriting/color-picker";
 import {textToHandwriting} from "@/config/i18n-constants";
 import {useTranslations} from "use-intl";
-import {Alert, AlertTitle} from "@/components/ui/alert";
+import {Alert, AlertDescription} from "@/components/ui/alert";
 
 const HANDWRITING_FONTS = [
     { name: "Dawning of a New Day", value: "Dawning of a New Day" },
@@ -459,9 +459,9 @@ export default function HandwritingConverter() {
                     <div className="my-2">
                         <Alert variant="default">
                             <Info/>
-                            <AlertTitle>
+                            <AlertDescription>
                                 {t(`${textToHandwriting}.page.note`)}
-                            </AlertTitle>
+                            </AlertDescription>
                         </Alert>
                     </div>
                     <div className="relative overflow-auto max-h-[80vh] border rounded-md p-4 bg-[var(--muted)]">
