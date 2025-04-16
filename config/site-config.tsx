@@ -66,6 +66,8 @@ export const jsonEditorPath = "/json-editor";
 
 export const imageMergePath = "/image-merge";
 
+export const textToHandwritingPath = "/text-to-handwriting";
+
 export const toolsNavItems: ToolNavItem[] = [
     {
         label: "QR Code Generator",
