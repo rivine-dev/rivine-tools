@@ -64,6 +64,8 @@ export const textComparePath = "/text-compare";
 
 export const jsonEditorPath = "/json-editor";
 
+export const imageMergePath = "/image-merge";
+
 export const toolsNavItems: ToolNavItem[] = [
     {
         label: "QR Code Generator",
