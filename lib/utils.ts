@@ -24,7 +24,10 @@ export function generateAlternates(locale: string, slug: string) {
   const defaultLang = supportedLanguages.find((lang) => lang.default)?.code || "en";
 
   // Generate canonical URL
-  const canonical = locale === defaultLang ? `${slug}` : `/${locale}${slug}`;
+  let canonical = locale === defaultLang ? `${slug}` : `/${locale}${slug}`;
+  if (!canonical) {
+    canonical = '/';
+  }
 
   // Generate alternate URLs excluding the current locale and x-default
   const languages = supportedLanguages.reduce<Record<string, string>>((acc, lang) => {
@@ -32,6 +35,9 @@ export function generateAlternates(locale: string, slug: string) {
     if (lang.code !== locale) {
       acc[lang.code] =
           lang.code === defaultLang ? `${slug}` : `/${lang.code}${slug}`;
+      if (!acc[lang.code]) {
+        acc[lang.code] = '/';
+      }
     }
     return acc;
   }, {});
