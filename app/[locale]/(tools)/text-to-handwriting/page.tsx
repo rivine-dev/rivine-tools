@@ -1,10 +1,10 @@
 import { Metadata } from "next";
-import {appName, siteUrl, timerPath} from "@/config/site-config";
+import {appName, textToHandwritingPath, siteUrl} from "@/config/site-config";
 import { getTranslations } from "next-intl/server";
 import { getLocalizedPath } from "@/i18n/get-localized-path";
 import JsonLd from "@/components/custom/core/json-ld";
-import {timer} from "@/config/i18n-constants";
-import {Timer} from "@/components/custom/timer/timer";
+import {textToHandwriting} from "@/config/i18n-constants";
+import HandwritingConverter from "@/components/custom/text-to-handwriting/handwriting-convertor";
 import {generateAlternates} from "@/lib/utils";
 
 type PageProps = {
@@ -12,7 +12,7 @@ type PageProps = {
     searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
-export default async function TimerPage({ params }: PageProps) {
+export default async function TextToHandwritingPage({ params }: PageProps) {
     const resolvedParams = await params; // Await the Promise
     const { locale } = resolvedParams; // Extract locale from resolved params
     const t = await getTranslations({ locale });
@@ -20,11 +20,11 @@ export default async function TimerPage({ params }: PageProps) {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: t(`${timer}.label`),
-        url: `${siteUrl}${getLocalizedPath({ slug: timerPath, locale })}`,
+        name: t(`${textToHandwriting}.label`),
+        url: `${siteUrl}${getLocalizedPath({ slug: textToHandwritingPath, locale })}`,
         applicationCategory: "Utility",
         operatingSystem: "All",
-        description: t(`${timer}.description`),
+        description: t(`${textToHandwriting}.description`),
         inLanguage: locale,
         publisher: {
             "@type": "Organization",
@@ -36,7 +36,7 @@ export default async function TimerPage({ params }: PageProps) {
     return (
         <>
             <JsonLd data={jsonLd} />
-            <Timer/>
+            <HandwritingConverter/>
         </>
     );
 }
@@ -46,33 +46,33 @@ export const generateMetadata = async ({ params }: PageProps): Promise<Metadata>
     const { locale } = resolvedParams; // Extract locale from resolved params
     const t = await getTranslations({ locale });
     const url = `${siteUrl}${getLocalizedPath({ slug: "", locale })}`;
-    const alternates = generateAlternates(locale, timerPath);
+    const alternates = generateAlternates(locale, textToHandwritingPath);
 
     return {
-        title: `${appName} | ${t(`${timer}.title`)}`,
-        description: t(`${timer}.description`),
-        keywords: Array.from({ length: 7 }, (_, i) => t(`${timer}.keywords.${i}`)),
+        title: `${appName} | ${t(`${textToHandwriting}.title`)}`,
+        description: t(`${textToHandwriting}.description`),
+        keywords: Array.from({ length: 26 }, (_, i) => t(`${textToHandwriting}.keywords.${i}`)),
         metadataBase: new URL(siteUrl),
         alternates,
         openGraph: {
-            title: `${t(`${timer}.title`)} | Free Online Timer`,
-            description: t(`${timer}.description`),
-            url: `${url}${timerPath}`,
+            title: `${t(`${textToHandwriting}.title`)} | Free Online Text to Handwriting`,
+            description: t(`${textToHandwriting}.description`),
+            url: `${url}${textToHandwritingPath}`,
             siteName: appName,
             images: [
                 {
                     url: `${siteUrl}/logo/logo-stone.png`,
                     width: 1200,
                     height: 630,
-                    alt: t(`${timer}.title`),
+                    alt: t(`${textToHandwriting}.title`),
                 },
             ],
             type: "website",
         },
         twitter: {
             card: "summary_large_image",
-            title: t(`${timer}.title`),
-            description: t(`${timer}.description`),
+            title: t(`${textToHandwriting}.title`),
+            description: t(`${textToHandwriting}.description`),
             images: [`${siteUrl}/logo/logo-stone.png`],
         },
     };
